@@ -23,8 +23,10 @@ package br.com.daydream.wtext.module.paragraph;
  */
 
 
-import br.com.daydream.wtext.markup.Sections;
+import br.com.daydream.wtext.markup.SectionMarkup;
 import br.com.daydream.wtext.markup.TextFormat;
+import br.com.daydream.wtext.module.Element;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by Rivaldo on 23/04/16.
@@ -51,6 +53,13 @@ public class ParagraphBuilder {
         return this;
     }
 
+    public ParagraphBuilder append(@NotNull Element element) {
+        builder.append(textCache);
+        textCache = element.toString();
+
+        return this;
+    }
+
     //TODO Colocar o @NotNull
     public ParagraphBuilder appendWithFormat(String text, TextFormat format) {
         builder.append(textCache);
@@ -71,16 +80,16 @@ public class ParagraphBuilder {
 
     public Paragraph buildSection() {
         builder.append(textCache);
-        return new Paragraph(Sections.SECTIONS.apply(builder.toString()));
+        return new Paragraph(SectionMarkup.SECTIONS.apply(builder.toString()));
     }
 
     public Paragraph buildSubsection() {
         builder.append(textCache);
-        return new Paragraph(Sections.SUBSECTION.apply(builder.toString()));
+        return new Paragraph(SectionMarkup.SUBSECTION.apply(builder.toString()));
     }
 
     public Paragraph buildSubSubsection() {
         builder.append(textCache);
-        return new Paragraph(Sections.SUB_SUBSECTION.apply(builder.toString()));
+        return new Paragraph(SectionMarkup.SUB_SUBSECTION.apply(builder.toString()));
     }
 }

@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.markup;
+package br.com.daydream.wtext.markup.table;
 
 /*
  * #%L
@@ -24,25 +24,26 @@ package br.com.daydream.wtext.markup;
 
 
 /**
- * Created by Rivaldo on 23/04/16.
+ * @author rivaldo
+ * Created on 25/04/2016.
  */
-public enum Sections {
+public enum TableParameter {
 
-    SECTIONS("== "," =="),
+    BORDER("border=\"", "\""),
 
-    SUBSECTION("=== ", " ==="),
+    CELL_PADDING("cellpadding=\"", "\""),
 
-    SUB_SUBSECTION("====", " ====");
+    CELL_SPACING("cellspacing=\"", "\"");
 
     private final String initialMarkup;
     private final String finalMarkup;
 
-    Sections(String initialMarkup, String finalMarkup) {
+    TableParameter(String initialMarkup, String finalMarkup) {
         this.initialMarkup = initialMarkup;
         this.finalMarkup = finalMarkup;
     }
 
-    public String apply(String text) {
+    public String apply(Object text) {
         return initialMarkup + text + finalMarkup;
     }
 }

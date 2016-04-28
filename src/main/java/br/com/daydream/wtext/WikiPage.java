@@ -35,24 +35,32 @@ public class WikiPage implements Closeable {
     private boolean open;
     private BufferedOutputStream os;
 
-    private WikiPage(OutputStream output) {
+    private static byte[] NEW_LINE = "\n".getBytes();
+
+    public WikiPage(OutputStream output) {
         this.open = true;
         this.os = new BufferedOutputStream(output);
-    }
-
-    public static WikiPage newWikiPage(OutputStream output) {
-        return new WikiPage(output);
     }
 
     public boolean addElement(Element element) {
         try {
             os.write(element.toString().getBytes());
+            os.write(NEW_LINE);
             os.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return true;
+    }
+
+    public void newLine() {
+        try {
+            os.write(NEW_LINE);
+            os.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void close() throws IOException {

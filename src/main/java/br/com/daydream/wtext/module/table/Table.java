@@ -1,11 +1,34 @@
 package br.com.daydream.wtext.module.table;
 
-import br.com.daydream.wtext.markup.table.CellType;
+/*
+ * #%L
+ * WText
+ * %%
+ * Copyright (C) 2016 Daydream
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * #L%
+ */
+
+
 import br.com.daydream.wtext.markup.table.TableMarkup;
-import br.com.daydream.wtext.markup.table.TableParameters;
+import br.com.daydream.wtext.markup.table.TableParameter;
 import br.com.daydream.wtext.module.Element;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -16,37 +39,9 @@ import java.util.Map;
  */
 public class Table extends Element {
 
-    public Table(String element) {
-        super(element);
-    }
-
-    private StringBuilder initTableAndStyle(Map<TableParameters, Object> param) {
-
-        StringBuilder sBuilder = new StringBuilder();
-        sBuilder.append(TableMarkup.TABLE_START);
-
-        if (MapUtils.isNotEmpty(param)) {
-            param.forEach((k, v) -> sBuilder.append(" ").append(k).append(v).append("\""));
-        }
-
-        sBuilder.append("\n");
-        return sBuilder;
-    }
-
-    private void addLines(StringBuilder sBuilder, List<List> lines) {
-
-        if (CollectionUtils.isNotEmpty(lines)) {
-            lines.forEach(line -> addLine(sBuilder, line));
-        }
-    }
-
-    private void addLine(StringBuilder sBuilder, List line) {
-
-        if (CollectionUtils.isNotEmpty(line)) {
-            sBuilder.append(TableMarkup.COLUMN_START).append("\n");
-            line.forEach( item -> sBuilder.append(TableMarkup.COLUMN_ITEM_DELIMITER).append(item) );
-            sBuilder.append("\n").append(TableMarkup.COLUMN_END).append("\n");
-        }
+    Table(TableBuilder builder) {
+        super("");
+        element = format(builder);
     }
 
     private String format(TableBuilder builder) {
@@ -55,22 +50,69 @@ public class Table extends Element {
 
         if (!builder.isEmptyTable()) {
 
-            StringBuilder sBuilder = initTableAndStyle(builder.parameters);
+            StringBuilder sBuilder = new StringBuilder(initTableAndStyle(builder.parameters));
 
-            addHeader(sBuilder, builder.header);
-            addLines(sBuilder, builder.lines);
+            sBuilder.append(addCaption(builder.caption));
+            sBuilder.append(addHeader(builder.header));
+            sBuilder.append(addRows(builder.rows));
 
-            sBuilder.append(TableMarkup.TABLE_END);
-
-            wikiTable = sBuilder.toString();
+            wikiTable = TableMarkup.TABLE_END.apply(sBuilder.toString());
         }
 
         return wikiTable;
     }
 
-    private void addHeader(StringBuilder sBuilder, List<String> header) {
-        if (CollectionUtils.isNotEmpty(header)) {
-            header.forEach(item -> sBuilder.append(CellType.HEADER.apply(item)));
+    private String initTableAndStyle(Map<TableParameter, Object> param) {
+
+        StringBuilder sBuilder = new StringBuilder();
+
+        if (MapUtils.isNotEmpty(param)) {
+            param.forEach((k, v) -> sBuilder.append(" ").append(k.apply(v)));
         }
+
+        return TableMarkup.TABLE_START.apply(sBuilder.toString());
+    }
+
+    private String addCaption(Cell caption) {
+        return caption != null ? caption.toString() : "";
+    }
+
+    private String addHeader(List<Cell> header) {
+        return iterateCellList(header);
+    }
+
+    private String addRows(List<List<Cell>> rows) {
+
+        String result = "";
+
+        if (CollectionUtils.isNotEmpty(rows)) {
+            StringBuilder sBuilder = new StringBuilder();
+            rows.forEach(row -> sBuilder.append(addRow(row)));
+            result = sBuilder.toString();
+        }
+
+        return result;
+    }
+
+    private String addRow(List<Cell> row) {
+
+        String result = iterateCellList(row);
+
+        if (StringUtils.isNotEmpty(result)) {
+            result = TableMarkup.ROW.apply(result);
+        }
+
+        return result;
+    }
+    
+    private String iterateCellList(List<Cell> data) {
+        
+        StringBuilder sBuilder = new StringBuilder();
+
+        if (CollectionUtils.isNotEmpty(data)) {
+            data.forEach( item -> sBuilder.append(item) );
+        }
+        
+        return sBuilder.toString();
     }
 }

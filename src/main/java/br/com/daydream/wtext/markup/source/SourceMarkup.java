@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.markup.table;
+package br.com.daydream.wtext.markup.source;
 
 /*
  * #%L
@@ -25,20 +25,18 @@ package br.com.daydream.wtext.markup.table;
 
 /**
  * @author rivaldo
- *         Created on 25/04/2016.
+ * Created on 26/04/2016.
  */
-public enum TableMarkup {
+public enum SourceMarkup {
 
-    TABLE_START("{|", "\n"),
+    SOURCE_START("<source", ">\n"),
 
-    TABLE_END("", "|}"),
-
-    ROW("|-\n", "\n|-\n");
+    SOURCE_END("", "\n</source>");
 
     private final String initialMarkup;
     private final String finalMarkup;
 
-    TableMarkup(String initialMarkup, String finalMarkup) {
+    SourceMarkup(String initialMarkup, String finalMarkup) {
         this.initialMarkup = initialMarkup;
         this.finalMarkup = finalMarkup;
     }

@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.markup.table;
+package br.com.daydream.wtext.module.paragraph;
 
 /*
  * #%L
@@ -23,27 +23,20 @@ package br.com.daydream.wtext.markup.table;
  */
 
 
+import br.com.daydream.wtext.markup.TextFormat;
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author rivaldo
- *         Created on 25/04/2016.
+ * Created on 26/04/2016.
  */
-public enum TableMarkup {
+public class Paragraphs {
 
-    TABLE_START("{|", "\n"),
-
-    TABLE_END("", "|}"),
-
-    ROW("|-\n", "\n|-\n");
-
-    private final String initialMarkup;
-    private final String finalMarkup;
-
-    TableMarkup(String initialMarkup, String finalMarkup) {
-        this.initialMarkup = initialMarkup;
-        this.finalMarkup = finalMarkup;
+    public static Paragraph newParagraph(@NotNull String text) {
+        return new Paragraph(text);
     }
 
-    public String apply(String text) {
-        return initialMarkup + text + finalMarkup;
+    public static Paragraph newParagraph(@NotNull String text, @NotNull TextFormat format) {
+        return new Paragraph(format.apply(text));
     }
 }

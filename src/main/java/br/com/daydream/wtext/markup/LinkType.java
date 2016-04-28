@@ -32,7 +32,9 @@ public enum LinkType {
 
     INTERNAL("[[","|", "]]"),
 
-    EXTERNAL("["," ", "]");
+    EXTERNAL("["," ", "]"),
+
+    FILE("[[:File:", "|", "]]");
 
     private final String initialMarkup;
     private final String separatorMarkup;

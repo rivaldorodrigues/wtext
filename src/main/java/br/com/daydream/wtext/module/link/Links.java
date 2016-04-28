@@ -25,6 +25,7 @@ package br.com.daydream.wtext.module.link;
 
 import br.com.daydream.wtext.markup.LinkType;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by Rivaldo on 23/04/16.
@@ -33,43 +34,43 @@ public final class Links {
 
     private static final String SECTION_SEPARATOR = "#";
 
-    //TODO Colocar o @NotNull
-    public static Link newInternalLink(String link) {
+    public static Link newInternalLink(@NotNull String link) {
         return newInternalLink(link, "");
     }
 
-    //TODO Colocar o @NotNull
-    public static Link newInternalLink(String link, String rename) {
+    public static Link newInternalLink(@NotNull String link, String rename) {
         return new Link(LinkType.INTERNAL.apply(link, rename));
     }
 
-    //TODO Colocar o @NotNull
-    public static Link newExternalLink(String link) {
+    public static Link newExternalLink(@NotNull String link) {
         return newExternalLink(link, "");
     }
 
-    //TODO Colocar o @NotNull
-    public static Link newExternalLink(String link, String rename) {
+    public static Link newExternalLink(@NotNull String link, String rename) {
         return new Link(LinkType.EXTERNAL.apply(link, rename));
     }
 
-    //TODO Colocar o @NotNull
-    public static Link newSectionLink(String section) {
+    public static Link newFileLink(@NotNull String link) {
+        return newFileLink(link, "");
+    }
+
+    public static Link newFileLink(@NotNull String link, String rename) {
+        return new Link(LinkType.FILE.apply(link, rename));
+    }
+
+    public static Link newSectionLink(@NotNull String section) {
         return newInternalLink(getSectionLink(section, ""));
     }
 
-    //TODO Colocar o @NotNull
-    public static Link newSectionLink(String section, String page) {
+    public static Link newSectionLink(@NotNull String section, String page) {
         return newInternalLink(getSectionLink(section, page));
     }
 
-    //TODO Colocar o @NotNull
-    public static Link newSectionLink(String section, String page, String rename) {
+    public static Link newSectionLink(@NotNull String section, String page, String rename) {
         return newInternalLink(getSectionLink(section, page), rename);
     }
 
-    //TODO Colocar o @NotNull
-    private static String getSectionLink(String section, String page) {
+    private static String getSectionLink(@NotNull String section, String page) {
         String nPage = StringUtils.isNoneEmpty(page) ? page : "";
         return nPage + SECTION_SEPARATOR + section;
     }

@@ -42,7 +42,6 @@ public enum TextFormat {
 
     BIG("<big>", "t</big>");
 
-
     final String initialMarkup;
     final String finalMarkup;
 
