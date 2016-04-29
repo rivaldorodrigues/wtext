@@ -40,7 +40,11 @@ public enum TextFormat {
 
     SMALL("<small>", "</small>"),
 
-    BIG("<big>", "t</big>");
+    BIG("<big>", "t</big>"),
+
+    BLOCKQUOTE("<blockquote>\n", "\n</blockquote>"),
+
+    CENTER("<center>", "</center>");
 
     final String initialMarkup;
     final String finalMarkup;
