@@ -23,14 +23,14 @@ package br.com.daydream.wtext.module.paragraph;
  */
 
 
-import br.com.daydream.wtext.module.Element;
+import br.com.daydream.wtext.arq.module.Text;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Created by Rivaldo on 23/04/16.
  */
-public class Paragraph extends Element {
+public class Paragraph extends Text {
 
     protected Paragraph(String element) {
         super(element);

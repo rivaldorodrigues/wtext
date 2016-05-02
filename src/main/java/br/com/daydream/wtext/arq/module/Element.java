@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.module;
+package br.com.daydream.wtext.arq.module;
 
 /*
  * #%L

@@ -24,7 +24,7 @@ package br.com.daydream.wtext.module.table;
 
 
 import br.com.daydream.wtext.markup.table.CellType;
-import br.com.daydream.wtext.module.Element;
+import br.com.daydream.wtext.arq.module.Element;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 

@@ -25,7 +25,7 @@ package br.com.daydream.wtext.module.source;
 
 import br.com.daydream.wtext.markup.source.SourceMarkup;
 import br.com.daydream.wtext.markup.source.SourceParameter;
-import br.com.daydream.wtext.module.Element;
+import br.com.daydream.wtext.arq.module.Element;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

@@ -23,7 +23,7 @@ package br.com.daydream.wtext;
  */
 
 
-import br.com.daydream.wtext.module.Element;
+import br.com.daydream.wtext.arq.module.Element;
 
 import java.io.*;
 

@@ -25,6 +25,7 @@ package br.com.daydream;
 
 import br.com.daydream.wtext.WikiPage;
 import br.com.daydream.wtext.module.link.Links;
+import br.com.daydream.wtext.module.list.ListBuilder;
 import br.com.daydream.wtext.module.paragraph.Paragraph;
 import br.com.daydream.wtext.module.paragraph.ParagraphBuilder;
 import br.com.daydream.wtext.module.section.Sections;
@@ -70,6 +71,9 @@ public class App
             page.addElement(criarCodigo());
             page.newLine();
 
+            page.addElement(criarLista());
+            page.newLine();
+
             ParagraphBuilder builder = new ParagraphBuilder();
             builder.append(Links.newFileLink("Manual_SGM-Mobile-v1.2_WM.docx"));
             builder.append(" ");
@@ -95,6 +99,16 @@ public class App
         builder.addNewRow(linha);
 
         return builder.build();
+    }
+
+    public static br.com.daydream.wtext.module.list.List criarLista() {
+        ListBuilder builder = new ListBuilder();
+        builder.addItem(1,"Item 1");
+        builder.addItem(1,"Item 2");
+        builder.addItem(2,"Sub-item 3");
+        builder.addItem(3, "Sub-item 4");
+
+        return builder.buildUnorderedList();
     }
 
     public static Source criarCodigo() {

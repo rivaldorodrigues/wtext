@@ -23,9 +23,8 @@ package br.com.daydream.wtext.module.paragraph;
  */
 
 
-import br.com.daydream.wtext.markup.SectionMarkup;
-import br.com.daydream.wtext.markup.TextFormat;
-import br.com.daydream.wtext.module.Element;
+import br.com.daydream.wtext.arq.formatter.TextFormat;
+import br.com.daydream.wtext.arq.module.Text;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -40,30 +39,26 @@ public class ParagraphBuilder {
         this("");
     }
 
-    public ParagraphBuilder(String text) {
+    public ParagraphBuilder(@NotNull String text) {
         this.textCache = text;
         builder = new StringBuilder();
     }
 
-    //TODO Colocar o @NotNull
-    public ParagraphBuilder append(String text) {
+    public ParagraphBuilder(@NotNull Text text) {
+        this.textCache = text.toString();
+        builder = new StringBuilder();
+    }
+
+    public ParagraphBuilder append(@NotNull String text) {
         builder.append(textCache);
         textCache = text;
 
         return this;
     }
 
-    public ParagraphBuilder append(@NotNull Element element) {
+    public ParagraphBuilder append(@NotNull Text text) {
         builder.append(textCache);
-        textCache = element.toString();
-
-        return this;
-    }
-
-    //TODO Colocar o @NotNull
-    public ParagraphBuilder appendWithFormat(String text, TextFormat format) {
-        builder.append(textCache);
-        textCache = format.apply(text);
+        textCache = text.toString();
 
         return this;
     }
@@ -76,20 +71,5 @@ public class ParagraphBuilder {
     public Paragraph buildParagraph() {
         builder.append(textCache);
         return new Paragraph(builder.toString());
-    }
-
-    public Paragraph buildSection() {
-        builder.append(textCache);
-        return new Paragraph(SectionMarkup.SECTIONS.apply(builder.toString()));
-    }
-
-    public Paragraph buildSubsection() {
-        builder.append(textCache);
-        return new Paragraph(SectionMarkup.SUBSECTION.apply(builder.toString()));
-    }
-
-    public Paragraph buildSubSubsection() {
-        builder.append(textCache);
-        return new Paragraph(SectionMarkup.SUB_SUBSECTION.apply(builder.toString()));
     }
 }

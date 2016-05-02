@@ -26,7 +26,7 @@ package br.com.daydream.wtext.markup;
 /**
  * Created by Rivaldo on 23/04/16.
  */
-public enum TextFormat {
+public enum WikiTextFormat {
 
     BOLD("'''", "'''"),
 
@@ -40,7 +40,7 @@ public enum TextFormat {
 
     SMALL("<small>", "</small>"),
 
-    BIG("<big>", "t</big>"),
+    BIG("<big>", "</big>"),
 
     BLOCKQUOTE("<blockquote>\n", "\n</blockquote>"),
 
@@ -49,7 +49,7 @@ public enum TextFormat {
     final String initialMarkup;
     final String finalMarkup;
 
-    TextFormat(String initialMarkup, String finalMarkup) {
+    WikiTextFormat(String initialMarkup, String finalMarkup) {
         this.initialMarkup = initialMarkup;
         this.finalMarkup = finalMarkup;
     }

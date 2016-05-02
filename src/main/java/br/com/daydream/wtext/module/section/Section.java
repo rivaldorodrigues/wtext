@@ -23,7 +23,7 @@ package br.com.daydream.wtext.module.section;
  */
 
 
-import br.com.daydream.wtext.module.paragraph.Paragraph;
+import br.com.daydream.wtext.arq.module.Text;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -31,10 +31,10 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * @author rivaldo
  *         Created on 26/04/2016.
  */
-public class Section extends Paragraph {
+public class Section extends Text {
 
-    public Section(String element) {
-        super(element);
+    public Section(String text) {
+        super(text);
     }
 
     @Override

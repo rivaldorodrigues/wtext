@@ -23,23 +23,27 @@ package br.com.daydream.wtext.module.link;
  */
 
 
+import br.com.daydream.wtext.arq.formatter.FormatterFactory;
+import br.com.daydream.wtext.arq.formatter.LinkFormatter;
 import br.com.daydream.wtext.markup.LinkType;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
+
+import java.net.URL;
 
 /**
  * Created by Rivaldo on 23/04/16.
  */
 public final class Links {
 
-    private static final String SECTION_SEPARATOR = "#";
+    private static LinkFormatter formatter = FormatterFactory.getLinkFormatter();
 
     public static Link newInternalLink(@NotNull String link) {
         return newInternalLink(link, "");
     }
 
     public static Link newInternalLink(@NotNull String link, String rename) {
-        return new Link(LinkType.INTERNAL.apply(link, rename));
+        return new Link(formatter.internal(link, rename));
     }
 
     public static Link newExternalLink(@NotNull String link) {
@@ -47,7 +51,7 @@ public final class Links {
     }
 
     public static Link newExternalLink(@NotNull String link, String rename) {
-        return new Link(LinkType.EXTERNAL.apply(link, rename));
+        return new Link(formatter.external(link, rename));
     }
 
     public static Link newFileLink(@NotNull String link) {
@@ -55,23 +59,18 @@ public final class Links {
     }
 
     public static Link newFileLink(@NotNull String link, String rename) {
-        return new Link(LinkType.FILE.apply(link, rename));
+        return new Link(formatter.file(link, rename));
     }
 
     public static Link newSectionLink(@NotNull String section) {
-        return newInternalLink(getSectionLink(section, ""));
+        return newSectionLink(section, "", "");
     }
 
     public static Link newSectionLink(@NotNull String section, String page) {
-        return newInternalLink(getSectionLink(section, page));
+        return newSectionLink(section, page, "");
     }
 
     public static Link newSectionLink(@NotNull String section, String page, String rename) {
-        return newInternalLink(getSectionLink(section, page), rename);
-    }
-
-    private static String getSectionLink(@NotNull String section, String page) {
-        String nPage = StringUtils.isNoneEmpty(page) ? page : "";
-        return nPage + SECTION_SEPARATOR + section;
+        return new Link(formatter.section(section, page, rename));
     }
 }

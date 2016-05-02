@@ -25,7 +25,7 @@ package br.com.daydream.wtext.module.table;
 
 import br.com.daydream.wtext.markup.table.TableMarkup;
 import br.com.daydream.wtext.markup.table.TableParameter;
-import br.com.daydream.wtext.module.Element;
+import br.com.daydream.wtext.arq.module.Element;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;

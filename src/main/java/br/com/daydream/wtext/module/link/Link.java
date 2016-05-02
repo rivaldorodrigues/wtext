@@ -23,14 +23,15 @@ package br.com.daydream.wtext.module.link;
  */
 
 
-import br.com.daydream.wtext.module.Element;
+import br.com.daydream.wtext.arq.module.Element;
+import br.com.daydream.wtext.arq.module.Text;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Created by Rivaldo on 23/04/16.
  */
-public class Link extends Element {
+public class Link extends Text {
 
     protected Link(String element) {
         super(element);
