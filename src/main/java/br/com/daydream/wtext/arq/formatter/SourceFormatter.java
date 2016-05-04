@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.markup.table;
+package br.com.daydream.wtext.arq.formatter;
 
 /*
  * #%L
@@ -23,27 +23,23 @@ package br.com.daydream.wtext.markup.table;
  */
 
 
+import br.com.daydream.wtext.arq.parameter.SourceParameter;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
+
 /**
- * @author rivaldo
- * Created on 25/04/2016.
+ * Created by Rivaldo on 01/05/16.
  */
-public enum TableParameter {
+public interface SourceFormatter {
 
-    BORDER("border=\"", "\""),
+    String paramLang(String text);
 
-    CELL_PADDING("cellpadding=\"", "\""),
+    String paramTitle(String text);
 
-    CELL_SPACING("cellspacing=\"", "\"");
+    String paramHighlight(String text);
 
-    private final String initialMarkup;
-    private final String finalMarkup;
+    String getHighlightAsText(@NotNull int... val);
 
-    TableParameter(String initialMarkup, String finalMarkup) {
-        this.initialMarkup = initialMarkup;
-        this.finalMarkup = finalMarkup;
-    }
-
-    public String apply(Object text) {
-        return initialMarkup + text + finalMarkup;
-    }
+    String formatSourcer(String sourcer, Map<SourceParameter, String> param);
 }

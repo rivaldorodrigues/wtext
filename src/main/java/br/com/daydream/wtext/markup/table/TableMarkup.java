@@ -33,7 +33,13 @@ public enum TableMarkup {
 
     TABLE_END("", "|}"),
 
-    ROW("|-\n", "\n|-\n");
+    ROW("|-\n", "\n|-\n"),
+
+    BORDER("border=\"", "\""),
+
+    CELL_PADDING("cellpadding=\"", "\""),
+
+    CELL_SPACING("cellspacing=\"", "\"");
 
     private final String initialMarkup;
     private final String finalMarkup;

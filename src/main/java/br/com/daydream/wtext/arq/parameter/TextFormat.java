@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.arq.formatter;
+package br.com.daydream.wtext.arq.parameter;
 
 /*
  * #%L
@@ -23,7 +23,8 @@ package br.com.daydream.wtext.arq.formatter;
  */
 
 
-import br.com.daydream.wtext.formatter.WikiTextFormatter;
+import br.com.daydream.wtext.arq.formatter.FormatterFactory;
+import br.com.daydream.wtext.arq.formatter.TextFormatter;
 
 /**
  * Created by Rivaldo on 23/04/16.
@@ -96,7 +97,7 @@ public enum TextFormat {
     final TextFormatter formatter;
 
     TextFormat() {
-        formatter = new WikiTextFormatter();
+        formatter = FormatterFactory.getTextFormat();
     }
 
     public abstract String apply(String text);

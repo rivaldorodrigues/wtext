@@ -23,7 +23,7 @@ package br.com.daydream.wtext.module.paragraph;
  */
 
 
-import br.com.daydream.wtext.arq.formatter.TextFormat;
+import br.com.daydream.wtext.arq.parameter.TextFormat;
 import br.com.daydream.wtext.arq.module.Text;
 import org.jetbrains.annotations.NotNull;
 

@@ -24,9 +24,9 @@ package br.com.daydream;
 
 
 import br.com.daydream.wtext.WikiPage;
+import br.com.daydream.wtext.arq.module.Text;
 import br.com.daydream.wtext.module.link.Links;
 import br.com.daydream.wtext.module.list.ListBuilder;
-import br.com.daydream.wtext.module.paragraph.Paragraph;
 import br.com.daydream.wtext.module.paragraph.ParagraphBuilder;
 import br.com.daydream.wtext.module.section.Sections;
 import br.com.daydream.wtext.module.source.Source;
@@ -51,8 +51,8 @@ public class App
     {
         try(WikiPage page = new WikiPage(new FileOutputStream("teste.txt"))) {
 
-            Paragraph titulo = Sections.newSection("Inicio da página");
-            Paragraph tituloTabela = Sections.newSubsection("Aqui bem uma tabela");
+            Text titulo = Sections.newSection("Inicio da página");
+            Text tituloTabela = Sections.newSubsection("Aqui vem uma tabela");
 
             page.addElement(titulo);
             page.newLine();
@@ -63,7 +63,7 @@ public class App
             page.addElement(criarTabela());
             page.newLine();
 
-            Paragraph tituloCodigo = Sections.newSubsection("Aqui vem um código");
+            Text tituloCodigo = Sections.newSubsection("Aqui vem um código");
 
             page.addElement(tituloCodigo);
             page.newLine();

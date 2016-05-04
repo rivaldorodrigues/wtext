@@ -31,7 +31,13 @@ public enum SourceMarkup {
 
     SOURCE_START("<source", ">\n"),
 
-    SOURCE_END("", "\n</source>");
+    SOURCE_END("", "\n</source>"),
+
+    LANG("lang=\"", "\""),
+
+    TITLE("title=\"\'", "\'\""),
+
+    HIGHLIGHT("highlight=\"[", "]\"");
 
     private final String initialMarkup;
     private final String finalMarkup;

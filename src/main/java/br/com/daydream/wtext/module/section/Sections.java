@@ -25,10 +25,7 @@ package br.com.daydream.wtext.module.section;
 
 import br.com.daydream.wtext.arq.formatter.FormatterFactory;
 import br.com.daydream.wtext.arq.formatter.SectionFormatter;
-import br.com.daydream.wtext.arq.formatter.TextFormat;
 import br.com.daydream.wtext.arq.module.Text;
-import br.com.daydream.wtext.markup.SectionMarkup;
-import br.com.daydream.wtext.markup.WikiTextFormat;
 import org.jetbrains.annotations.NotNull;
 
 /**

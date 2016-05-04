@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.module.table;
+package br.com.daydream.wtext.arq.parameter;
 
 /*
  * #%L
@@ -23,15 +23,41 @@ package br.com.daydream.wtext.module.table;
  */
 
 
-import br.com.daydream.wtext.arq.module.Element;
+import br.com.daydream.wtext.arq.formatter.FormatterFactory;
+import br.com.daydream.wtext.arq.formatter.TableFormatter;
 
 /**
  * @author rivaldo
  * Created on 25/04/2016.
  */
-public class Table extends Element {
+public enum TableParameter {
 
-    Table(String element) {
-        super(element);
+    BORDER() {
+        @Override
+        public String apply(Object text) {
+            return formatter.border(text);
+        }
+    },
+
+    CELL_PADDING() {
+        @Override
+        public String apply(Object text) {
+            return formatter.cellPadding(text);
+        }
+    },
+
+    CELL_SPACING() {
+        @Override
+        public String apply(Object text) {
+            return formatter.cellSpacing(text);
+        }
+    };
+
+    final TableFormatter formatter;
+
+    TableParameter() {
+        formatter = FormatterFactory.getTableFormatter();
     }
+
+    public abstract String apply(Object text);
 }

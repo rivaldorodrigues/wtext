@@ -23,10 +23,11 @@ package br.com.daydream.wtext.module.source;
  */
 
 
-import br.com.daydream.wtext.markup.source.SourceParameter;
+import br.com.daydream.wtext.arq.formatter.FormatterFactory;
+import br.com.daydream.wtext.arq.formatter.SourceFormatter;
+import br.com.daydream.wtext.arq.parameter.SourceParameter;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.ArrayUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
@@ -38,6 +39,8 @@ public class SourceBuilder {
 
     StringBuilder sourcer = new StringBuilder();
     Map<SourceParameter, String> parameters = Maps.newHashMap();
+
+    private static SourceFormatter formatter = FormatterFactory.getSourceFormatter();
 
     public SourceBuilder withLang(String val) {
         parameters.put(SourceParameter.LANG, val);
@@ -52,7 +55,7 @@ public class SourceBuilder {
     public SourceBuilder withHighLight(int... val) {
 
         if (ArrayUtils.isNotEmpty(val)) {
-            parameters.put(SourceParameter.HIGHLIGHT, getHighlightParameters(val));
+            parameters.put(SourceParameter.HIGHLIGHT, formatter.getHighlightAsText(val));
         }
 
         return this;
@@ -69,18 +72,7 @@ public class SourceBuilder {
     }
 
     public Source build() {
-        return new Source(this);
+        return new Source(formatter.formatSourcer(sourcer.toString(), parameters));
     }
 
-    private String getHighlightParameters(@NotNull int... val) {
-
-        StringBuilder sBuilder = new StringBuilder();
-        sBuilder.append(val[0]);
-
-        for (int i = 1; i < val.length; ++i) {
-            sBuilder.append(",").append(val[i]);
-        }
-
-        return sBuilder.toString();
-    }
 }

@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.markup;
+package br.com.daydream.wtext.arq.formatter;
 
 /*
  * #%L
@@ -23,33 +23,21 @@ package br.com.daydream.wtext.markup;
  */
 
 
-import java.util.stream.IntStream;
+import br.com.daydream.wtext.arq.parameter.TableParameter;
+import br.com.daydream.wtext.module.table.Cell;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author rivaldo
- * Created on 29/04/2016.
+ *         Created on 04/05/2016.
  */
-public enum ListType {
+public interface TableFormatter {
 
-    UNORDERED("*", "\n"),
+    String border(Object text);
+    String cellPadding(Object text);
+    String cellSpacing(Object text);
 
-    ORDERED("#", "\n");
-
-    private final String initialMarkup;
-    final String finalMarkup;
-
-    ListType(String initialMarkup, String finalMarkup) {
-        this.initialMarkup = initialMarkup;
-        this.finalMarkup = finalMarkup;
-    }
-
-    public String apply(int level, String text) {
-
-        StringBuilder builder = new StringBuilder();
-        level = (level > 0) ? level : 1;
-
-        IntStream.rangeClosed(1, level).forEach(value -> builder.append(initialMarkup));
-
-        return builder.append(text).append(finalMarkup).toString();
-    }
+    String formatTable(List<Cell> header, Cell caption, List<List<Cell>> rows, Map<TableParameter, Object> parameters);
 }

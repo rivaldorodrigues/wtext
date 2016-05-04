@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.markup.source;
+package br.com.daydream.wtext.arq.parameter;
 
 /*
  * #%L
@@ -23,27 +23,41 @@ package br.com.daydream.wtext.markup.source;
  */
 
 
+import br.com.daydream.wtext.arq.formatter.FormatterFactory;
+import br.com.daydream.wtext.arq.formatter.SourceFormatter;
+
 /**
  * @author rivaldo
  *         Created on 26/04/2016.
  */
 public enum SourceParameter {
 
-    LANG("lang=\"", "\""),
+    LANG() {
+        @Override
+        public String apply(String text) {
+            return formatter.paramLang(text);
+        }
+    },
 
-    TITLE("title=\"\'", "\'\""),
+    TITLE() {
+        @Override
+        public String apply(String text) {
+            return formatter.paramTitle(text);
+        }
+    },
 
-    HIGHLIGHT("highlight=\"[", "]\"");
+    HIGHLIGHT() {
+        @Override
+        public String apply(String text) {
+            return formatter.paramHighlight(text);
+        }
+    };
 
-    private final String initialMarkup;
-    private final String finalMarkup;
+    final SourceFormatter formatter;
 
-    SourceParameter(String initialMarkup, String finalMarkup) {
-        this.initialMarkup = initialMarkup;
-        this.finalMarkup = finalMarkup;
+    SourceParameter() {
+        formatter = FormatterFactory.getSourceFormatter();
     }
 
-    public String apply(String text) {
-        return initialMarkup + text + finalMarkup;
-    }
+    public abstract String apply(String text);
 }

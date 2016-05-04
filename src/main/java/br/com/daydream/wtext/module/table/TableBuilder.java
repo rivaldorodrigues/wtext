@@ -23,7 +23,10 @@ package br.com.daydream.wtext.module.table;
  */
 
 
-import br.com.daydream.wtext.markup.table.TableParameter;
+import br.com.daydream.wtext.arq.formatter.FormatterFactory;
+import br.com.daydream.wtext.arq.formatter.SourceFormatter;
+import br.com.daydream.wtext.arq.formatter.TableFormatter;
+import br.com.daydream.wtext.arq.parameter.TableParameter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -41,6 +44,8 @@ public class TableBuilder {
     List<List<Cell>> rows = Lists.newArrayList();
 
     Map<TableParameter, Object> parameters = Maps.newHashMap();
+
+    private static TableFormatter formatter = FormatterFactory.getTableFormatter();
 
     public TableBuilder() {
         this.header = Lists.newArrayList();
@@ -97,7 +102,7 @@ public class TableBuilder {
     }
 
     public Table build() {
-        return new Table(this);
+        return new Table(formatter.formatTable(header,caption,rows,parameters));
     }
 
     private void addDefaultParameters() {
