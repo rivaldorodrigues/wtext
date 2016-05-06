@@ -27,22 +27,40 @@ import br.com.daydream.wtext.arq.module.Text;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Created by Rivaldo on 30/04/16.
+ * Represents an item at a list element at the document.
+ *
+ * @author hivakun
+ * Created on 30/04/16
  */
 public class ListItem extends Text {
 
-    int level;
+    protected int level;
 
+    /**
+     *
+     * @param level
+     * @param item
+     */
     public ListItem(int level, @NotNull String item) {
         super(item);
         this.level = (level > 0) ? level : 1;
     }
 
+    /**
+     *
+     * @param level
+     * @param item
+     */
     public ListItem(int level, @NotNull Text item) {
         super(item.toString());
         this.level = (level > 0) ? level : 1;
     }
 
+    /**
+     * Get the item level at the list hierarchy.
+     *
+     * @return the item level at the list hierarchy
+     */
     public int getLevel() {
         return level;
     }

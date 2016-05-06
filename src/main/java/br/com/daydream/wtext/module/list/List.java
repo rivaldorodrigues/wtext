@@ -25,13 +25,19 @@ package br.com.daydream.wtext.module.list;
 
 import br.com.daydream.wtext.arq.module.Element;
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
- * Created by Rivaldo on 30/04/16.
+ * Represents a list element at the document.
+ *
+ * @author hivakun
+ * Created on 30/04/16
  */
 public class List extends Element {
 
+    /**
+     * Create a new list element.
+     * @param element the string that represents the element
+     */
     List(String element) {
         super(element);
     }
@@ -47,12 +53,5 @@ public class List extends Element {
         return new EqualsBuilder()
                 .append(element, other.element)
                 .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(element)
-                .toHashCode();
     }
 }
