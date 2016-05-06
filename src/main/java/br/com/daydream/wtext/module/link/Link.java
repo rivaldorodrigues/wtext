@@ -23,16 +23,21 @@ package br.com.daydream.wtext.module.link;
  */
 
 
-import br.com.daydream.wtext.arq.module.Element;
 import br.com.daydream.wtext.arq.module.Text;
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
- * Created by Rivaldo on 23/04/16.
+ * Represents a link element at the document.
+ *
+ * @author hivakun
+ * Created on 23/04/16
  */
 public class Link extends Text {
 
+    /**
+     * Create a new link element.
+     * @param element the string that represents the element
+     */
     protected Link(String element) {
         super(element);
     }
@@ -49,12 +54,4 @@ public class Link extends Text {
                 .append(element, other.element)
                 .isEquals();
     }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(element)
-                .toHashCode();
-    }
-
 }

@@ -41,13 +41,13 @@ public class ListItem extends Text {
      * @param level
      * @param item
      */
-    public ListItem(int level, @NotNull String item) {
+    public ListItem(int level, String item) {
         super(item);
         this.level = (level > 0) ? level : 1;
     }
 
     /**
-     *
+     * Cre
      * @param level
      * @param item
      */
