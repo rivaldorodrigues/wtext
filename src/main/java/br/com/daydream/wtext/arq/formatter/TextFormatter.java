@@ -22,27 +22,84 @@ package br.com.daydream.wtext.arq.formatter;
  * #L%
  */
 
-
 /**
- * Created by Rivaldo on 01/05/16.
+ * Interface to all classes that implement the text formatting strategy.
+ * @see br.com.daydream.wtext.arq.module.Text
+ *
+ * @author hivakun
+ * Created on 01/05/16
  */
 public interface TextFormatter {
 
+    /**
+     * Apply the bold style markup to the text.
+     *
+     * @param text the text to be formated
+     * @return the original text with bold style markup
+     */
     String bold(String text);
 
+    /**
+     * Apply the italic style markup to the text.
+     *
+     * @param text the text to be formated
+     * @return the original text with italic style markup
+     */
     String italic(String text);
 
+    /**
+     * Apply the italic and bold style markup to the text.
+     *
+     * @param text the text to be formated
+     * @return the original text with italic and bold style markup
+     */
     String italicBold(String text);
 
+    /**
+     * Apply the small caps style markup to the text.
+     *
+     * @param text the text to be formated
+     * @return the original text with small caps style markup
+     */
     String smallCaps(String text);
 
+    /**
+     * Apply the code style markup to the text.
+     *
+     * @param text the text to be formated
+     * @return the original text with code style markup
+     */
     String code(String text);
 
+    /**
+     * Apply the small style markup to the text.
+     *
+     * @param text the text to be formated
+     * @return the original text with small style markup
+     */
     String small(String text);
 
+    /**
+     * Apply the big style markup to the text.
+     *
+     * @param text the text to be formated
+     * @return the original text with big style markup
+     */
     String big(String text);
 
+    /**
+     * Apply the block quote style markup to the text.
+     *
+     * @param text the text to be formated
+     * @return the original text with block quote style markup
+     */
     String blockQuote(String text);
 
+    /**
+     * Apply the center style markup to the text.
+     *
+     * @param text the text to be formated
+     * @return the original text with center style markup
+     */
     String center(String text);
 }

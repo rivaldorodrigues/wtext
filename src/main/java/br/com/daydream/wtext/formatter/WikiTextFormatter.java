@@ -27,7 +27,11 @@ import br.com.daydream.wtext.arq.formatter.TextFormatter;
 import br.com.daydream.wtext.markup.WikiTextFormat;
 
 /**
- * Created by Rivaldo on 01/05/16.
+ * Implements the mediawiki text formatting strategy.
+ * @see br.com.daydream.wtext.arq.module.Text
+ *
+ * @author hivakun
+ * Created on 01/05/16
  */
 public class WikiTextFormatter implements TextFormatter {
 

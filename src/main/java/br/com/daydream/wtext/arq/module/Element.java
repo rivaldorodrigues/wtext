@@ -23,13 +23,22 @@ package br.com.daydream.wtext.arq.module;
  */
 
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 /**
- * Created by Rivaldo on 23/04/16.
+ * Represents a simple element of the document.
+ *
+ * @author hivakun
+ * Created on 23/04/16
  */
 public abstract class Element {
 
     protected String element;
 
+    /**
+     * Create a new element.
+     * @param element the string that represents the element
+     */
     protected Element(String element) {
         this.element = element;
     }
@@ -38,4 +47,12 @@ public abstract class Element {
     public String toString() {
         return element;
     }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(element)
+                .toHashCode();
+    }
+
 }

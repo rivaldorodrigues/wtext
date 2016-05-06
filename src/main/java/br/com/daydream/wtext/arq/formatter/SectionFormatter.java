@@ -24,13 +24,35 @@ package br.com.daydream.wtext.arq.formatter;
 
 
 /**
- * Created by Rivaldo on 01/05/16.
+ * Interface to all classes that implement the section formatting strategy.
+ * @see br.com.daydream.wtext.module.section.Section
+ *
+ * @author hivakun
+ * Created on 01/05/16
  */
 public interface SectionFormatter {
 
+    /**
+     * Apply the section markup to the text.
+     *
+     * @param text the text to be formated
+     * @return the original text with section markup
+     */
     String section(String text);
 
+    /**
+     * Apply the subsection markup to the text.
+     *
+     * @param text the text to be formated
+     * @return the original text with subsection markup
+     */
     String subsection(String text);
 
+    /**
+     * Apply the sub-subsection markup to the text.
+     *
+     * @param text the text to be formated
+     * @return the original text with sub-subsection markup
+     */
     String subSubsection(String text);
 }

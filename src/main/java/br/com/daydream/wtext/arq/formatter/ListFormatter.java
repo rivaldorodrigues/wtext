@@ -28,11 +28,27 @@ import br.com.daydream.wtext.module.list.ListItem;
 import java.util.Collection;
 
 /**
- * Created by Rivaldo on 01/05/16.
+ * Interface to all classes that implement the list formatting strategy.
+ * @see br.com.daydream.wtext.module.list.List
+ *
+ * @author hivakun
+ * Created on 01/05/16
  */
 public interface ListFormatter {
 
-    String ordered(Collection<ListItem> itens);
+    /**
+     * Apply the ordered list markup to the collection of {@code ListItem}.
+     *
+     * @param items the collection of the list elements
+     * @return an ordered list with all desired elements
+     */
+    String ordered(Collection<ListItem> items);
 
-    String unordered(Collection<ListItem> itens);
+    /**
+     * Apply the unordered list markup to the collection of {@code ListItem}.
+     *
+     * @param items the collection of the list elements
+     * @return an ordered list with all desired elements
+     */
+    String unordered(Collection<ListItem> items);
 }

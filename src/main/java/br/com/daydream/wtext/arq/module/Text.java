@@ -25,22 +25,41 @@ package br.com.daydream.wtext.arq.module;
 
 import br.com.daydream.wtext.arq.parameter.TextFormat;
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
- * Created by Rivaldo on 01/05/16.
+ * Represents a simple text element of the document.
+ * This element can be formatted.
+ *
+ * @author hivakun
+ * Created on 01/05/16
  */
 public class Text extends Element {
 
+    /**
+     * Create a new text element.
+     *
+     * @param text the string that represents the text
+     */
     public Text(String text) {
         super(text);
     }
 
+    /**
+     * Create a new text element with the desired format.
+     *
+     * @param text the string that represents the text
+     * @param format the style to format the text
+     */
     public Text(String text, TextFormat format) {
         super(text);
         format(format);
     }
 
+    /**
+     * Format the text.
+     *
+     * @param format the style to format the text
+     */
     protected void format(TextFormat format) {
         element = format.apply(element);
     }
@@ -56,12 +75,5 @@ public class Text extends Element {
         return new EqualsBuilder()
                 .append(element, other.element)
                 .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(element)
-                .toHashCode();
     }
 }

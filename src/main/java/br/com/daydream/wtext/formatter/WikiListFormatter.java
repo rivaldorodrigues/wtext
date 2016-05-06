@@ -30,7 +30,11 @@ import br.com.daydream.wtext.module.list.ListItem;
 import java.util.Collection;
 
 /**
- * Created by Rivaldo on 01/05/16.
+ * Implements the mediawiki list formatting strategy.
+ * @see br.com.daydream.wtext.module.list.List
+ *
+ * @author hivakun
+ * Created on 01/05/16
  */
 public class WikiListFormatter implements ListFormatter {
 

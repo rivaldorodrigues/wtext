@@ -29,7 +29,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Created by Rivaldo on 01/05/16.
+ * Implements the mediawiki link formatting strategy.
+ * @see br.com.daydream.wtext.module.link.Link
+ *
+ * @author hivakun
+ * Created on 01/05/16
  */
 public class WikiLinkFormatter implements LinkFormatter {
 
@@ -55,6 +59,13 @@ public class WikiLinkFormatter implements LinkFormatter {
         return internal(getSectionLink(section, page), rename);
     }
 
+    /**
+     * Gets the url for a section link.
+     *
+     * @param section the section which the link should point
+     * @param page the page that contains the desired section
+     * @return the section link url
+     */
     private static String getSectionLink(@NotNull String section, String page) {
         String nPage = StringUtils.isNoneEmpty(page) ? page : "";
         return nPage + SECTION_SEPARATOR + section;

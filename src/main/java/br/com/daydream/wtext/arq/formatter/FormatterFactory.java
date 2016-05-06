@@ -22,34 +22,60 @@ package br.com.daydream.wtext.arq.formatter;
  * #L%
  */
 
-
 import br.com.daydream.wtext.formatter.*;
 
 /**
- * Created by Rivaldo on 01/05/16.
+ * Factory responsible for creating the document formatting classes.
+ *
+ * @author hivakun
+ * Created on 01/05/16
  */
 public class FormatterFactory {
 
+    /**
+     * Get the default implementation of the {@code TextFormatter} interface to be used to format text.
+     * @return the default implementation of {@code TextFormatter}
+     */
     public static TextFormatter getTextFormat() {
         return new WikiTextFormatter();
     }
 
+    /**
+     * Get the default implementation of the {@code SectionFormatter} interface to be used to format sections.
+     * @return the default implementation of {@code SectionFormatter}
+     */
     public static SectionFormatter getSectionFormatter() {
         return new WikiSectionFormatter();
     }
 
+    /**
+     * Get the default implementation of the {@code LinkFormatter} interface to be used to format links.
+     * @return the default implementation of {@code LinkFormatter}
+     */
     public static LinkFormatter getLinkFormatter() {
         return new WikiLinkFormatter();
     }
 
+    /**
+     * Get the default implementation of the {@code ListFormatter} interface to be used to format lists.
+     * @return the default implementation of {@code ListFormatter}
+     */
     public static ListFormatter getListFormatter() {
         return new WikiListFormatter();
     }
 
+    /**
+     * Get the default implementation of the {@code SourceFormatter} interface to be used to format sources.
+     * @return the default implementation of {@code SourceFormatter}
+     */
     public static SourceFormatter getSourceFormatter() {
         return new WikiSourceFormatter();
     }
 
+    /**
+     * Get the default implementation of the {@code TableFormatter} interface to be used to format tables.
+     * @return the default implementation of {@code TableFormatter}
+     */
     public static TableFormatter getTableFormatter() {
         return new WikiTableFormatter();
     }
