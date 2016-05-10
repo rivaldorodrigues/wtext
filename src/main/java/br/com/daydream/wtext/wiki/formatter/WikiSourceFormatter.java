@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.formatter;
+package br.com.daydream.wtext.wiki.formatter;
 
 /*
  * #%L
@@ -25,63 +25,77 @@ package br.com.daydream.wtext.formatter;
 
 import br.com.daydream.wtext.arq.formatter.SourceFormatter;
 import br.com.daydream.wtext.arq.parameter.SourceParameter;
-import br.com.daydream.wtext.markup.source.SourceMarkup;
+import br.com.daydream.wtext.wiki.markup.WikiSourceMarkup;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
 /**
- * Created by Rivaldo on 01/05/16.
+ * Implements the mediawiki source formatting strategy.
+ * @see br.com.daydream.wtext.module.source.Source
+ *
+ * @author hivakun
+ * Created on 01/05/16
  */
 public class WikiSourceFormatter implements SourceFormatter {
 
     private static final String HIGHLIGHT_SEPARATOR = ",";
 
     @Override
-    public String paramLang(String text) {
-        return SourceMarkup.LANG.apply(text);
+    public String paramLang(@NotNull Object val) {
+        return WikiSourceMarkup.LANG.apply(val.toString());
     }
 
     @Override
-    public String paramTitle(String text) {
-        return SourceMarkup.TITLE.apply(text);
+    public String paramTitle(@NotNull Object val) {
+        return WikiSourceMarkup.TITLE.apply(val.toString());
     }
 
     @Override
-    public String paramHighlight(String text) {
-        return SourceMarkup.HIGHLIGHT.apply(text);
+    public String paramHighlight(@NotNull Object val) {
+        return WikiSourceMarkup.HIGHLIGHT.apply(val.toString());
     }
 
     @Override
-    public String getHighlightAsText(@NotNull int... val) {
+    public String getHighlightAsText(int... val) {
 
         StringBuilder sBuilder = new StringBuilder();
-        sBuilder.append(val[0]);
 
-        for (int i = 1; i < val.length; ++i) {
-            sBuilder.append(HIGHLIGHT_SEPARATOR).append(val[i]);
+        if (ArrayUtils.isNotEmpty(val)) {
+            sBuilder.append(val[0]);
+
+            for (int i = 1; i < val.length; ++i) {
+                sBuilder.append(HIGHLIGHT_SEPARATOR).append(val[i]);
+            }
         }
 
         return sBuilder.toString();
     }
 
     @Override
-    public String formatSourcer(String sourcer, Map<SourceParameter, String> param) {
+    public String formatSourcer(String sourcer, Map<SourceParameter, Object> param) {
         StringBuilder sBuilder = new StringBuilder(initSourceAndStyle(param));
         sBuilder.append(sourcer);
 
-        return SourceMarkup.SOURCE_END.apply(sBuilder.toString());
+        return WikiSourceMarkup.SOURCE_END.apply(sBuilder.toString());
     }
 
-    private String initSourceAndStyle(Map<SourceParameter, String> param) {
+    /**
+     * Initialize the source markup with the specified parameters.
+     *
+     * @param param the desired parameters
+     * @return a string formatted with the source markup
+     */
+    private String initSourceAndStyle(Map<SourceParameter, Object> param) {
 
         StringBuilder sBuilder = new StringBuilder();
 
         if (MapUtils.isNotEmpty(param)) {
-            param.forEach((k, v) -> sBuilder.append(" ").append(k.apply(v)));
+            param.forEach((k, v) -> sBuilder.append(" ").append(k.apply(v.toString())));
         }
 
-        return SourceMarkup.SOURCE_START.apply(sBuilder.toString());
+        return WikiSourceMarkup.SOURCE_START.apply(sBuilder.toString());
     }
 }

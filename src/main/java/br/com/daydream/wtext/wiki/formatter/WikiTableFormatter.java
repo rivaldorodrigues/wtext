@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.formatter;
+package br.com.daydream.wtext.wiki.formatter;
 
 /*
  * #%L
@@ -25,34 +25,39 @@ package br.com.daydream.wtext.formatter;
 
 import br.com.daydream.wtext.arq.formatter.TableFormatter;
 import br.com.daydream.wtext.arq.parameter.TableParameter;
-import br.com.daydream.wtext.markup.table.TableMarkup;
+import br.com.daydream.wtext.wiki.markup.WikiTableMarkup;
 import br.com.daydream.wtext.module.table.Cell;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
- * @author rivaldo
- *         Created on 04/05/2016.
+ * Implements the mediawiki table formatting strategy.
+ * @see br.com.daydream.wtext.module.table.Table
+ *
+ * @author hivakun
+ * Created on 04/05/16
  */
 public class WikiTableFormatter implements TableFormatter {
 
     @Override
-    public String border(Object text) {
-        return TableMarkup.BORDER.apply(text.toString());
+    public String border(@NotNull Object text) {
+        return WikiTableMarkup.BORDER.apply(text.toString());
     }
 
     @Override
-    public String cellPadding(Object text) {
-        return TableMarkup.CELL_PADDING.apply(text.toString());
+    public String cellPadding(@NotNull Object text) {
+        return WikiTableMarkup.CELL_PADDING.apply(text.toString());
     }
 
     @Override
-    public String cellSpacing(Object text) {
-        return TableMarkup.CELL_SPACING.apply(text.toString());
+    public String cellSpacing(@NotNull Object text) {
+        return WikiTableMarkup.CELL_SPACING.apply(text.toString());
     }
 
     @Override
@@ -64,9 +69,15 @@ public class WikiTableFormatter implements TableFormatter {
         sBuilder.append(addHeader(header));
         sBuilder.append(addRows(rows));
 
-        return TableMarkup.TABLE_END.apply(sBuilder.toString());
+        return WikiTableMarkup.TABLE_END.apply(sBuilder.toString());
     }
 
+    /**
+     * Initialize the table markup with the specified parameters.
+     *
+     * @param param the desired parameters
+     * @return a string formatted with the source markup
+     */
     private String initTableAndStyle(Map<TableParameter, Object> param) {
 
         StringBuilder sBuilder = new StringBuilder();
@@ -75,17 +86,35 @@ public class WikiTableFormatter implements TableFormatter {
             param.forEach((k, v) -> sBuilder.append(" ").append(k.apply(v)));
         }
 
-        return TableMarkup.TABLE_START.apply(sBuilder.toString());
+        return WikiTableMarkup.TABLE_START.apply(sBuilder.toString());
     }
 
+    /**
+     * Add a caption to the table.
+     *
+     * @param caption the desired caption
+     * @return a string formatted with the caption markup
+     */
     private String addCaption(Cell caption) {
-        return caption != null ? caption.toString() : "";
+        return caption == null ? "" : WikiTableMarkup.CAPTION.apply(caption.toString());
     }
 
+    /**
+     * Add an header to the table.
+     *
+     * @param header the desired header row
+     * @return a string formatted with the header markup
+     */
     private String addHeader(List<Cell> header) {
-        return iterateCellList(header);
+        return iterateCellList(header, WikiTableMarkup.HEADER);
     }
 
+    /**
+     * Add a list of rows to the table.
+     *
+     * @param rows the list of rows
+     * @return a string formatted with the row markup
+     */
     private String addRows(List<List<Cell>> rows) {
 
         String result = "";
@@ -99,23 +128,36 @@ public class WikiTableFormatter implements TableFormatter {
         return result;
     }
 
+    /**
+     * Add a single row to the table.
+     *
+     * @param row the desired row
+     * @return a string formatted with the row markup
+     */
     private String addRow(List<Cell> row) {
 
-        String result = iterateCellList(row);
+        String result = iterateCellList(row, WikiTableMarkup.DATA);
 
         if (StringUtils.isNotEmpty(result)) {
-            result = TableMarkup.ROW.apply(result);
+            result = WikiTableMarkup.ROW.apply(result);
         }
 
         return result;
     }
 
-    private String iterateCellList(List<Cell> data) {
+    /**
+     * Iterate through a list of cell and format it with a specific type.
+     *
+     * @param data a list of cells that represents a row
+     * @param type the cell type
+     * @return a string formatted with the row type markup
+     */
+    private String iterateCellList(List<Cell> data, WikiTableMarkup type) {
 
         StringBuilder sBuilder = new StringBuilder();
 
         if (CollectionUtils.isNotEmpty(data)) {
-            data.forEach(item -> sBuilder.append(item));
+            data.stream().filter(Objects::nonNull).forEach(item -> sBuilder.append(type.apply(item.toString())));
         }
 
         return sBuilder.toString();

@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.markup;
+package br.com.daydream.wtext.wiki.markup;
 
 /*
  * #%L
@@ -26,9 +26,13 @@ package br.com.daydream.wtext.markup;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Created by Rivaldo on 23/04/16.
+ * Enum that hold all the mediawiki markups for link format.
+ * @see br.com.daydream.wtext.wiki.formatter.WikiLinkFormatter
+ *
+ * @author hivakun
+ * Created on 23/04/16
  */
-public enum LinkType {
+public enum WikiLinkMarkup {
 
     INTERNAL("[[","|", "]]"),
 
@@ -40,12 +44,26 @@ public enum LinkType {
     private final String separatorMarkup;
     private final String finalMarkup;
 
-    LinkType(String initialMarkup, String separatorMarkup, String finalMarkup) {
+    /**
+     * Creates the constants of link format markup.
+     *
+     * @param initialMarkup the initial format markup
+     * @param separatorMarkup the middle markup to separate the link and the replace name
+     * @param finalMarkup the final format markup
+     */
+    WikiLinkMarkup(String initialMarkup, String separatorMarkup, String finalMarkup) {
         this.initialMarkup = initialMarkup;
         this.separatorMarkup = separatorMarkup;
         this.finalMarkup = finalMarkup;
     }
 
+    /**
+     * Apply the specified link format.
+     *
+     * @param link the link text to be formatted
+     * @param rename the name to replace the link
+     * @return the original link with the desired link markup
+     */
     public String apply(String link, String rename) {
         String result = initialMarkup + link;
 

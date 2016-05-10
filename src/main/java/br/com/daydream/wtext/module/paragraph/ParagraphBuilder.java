@@ -23,39 +23,68 @@ package br.com.daydream.wtext.module.paragraph;
  */
 
 
-import br.com.daydream.wtext.arq.parameter.TextFormat;
 import br.com.daydream.wtext.arq.module.Text;
+import br.com.daydream.wtext.arq.parameter.TextFormat;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Created by Rivaldo on 23/04/16.
+ * Builder class to create paragraph.
+ * @see Paragraph
+ *
+ * @author hivakun
+ * Created on 23/04/16
  */
 public class ParagraphBuilder {
 
     private String textCache;
     private StringBuilder builder;
 
+    /**
+     * Create the paragraph builder.
+     */
     public ParagraphBuilder() {
         this("");
     }
 
-    public ParagraphBuilder(@NotNull String text) {
+    /**
+     * Create the paragraph builder with a initial text.
+     *
+     * @param text the initial text
+     */
+    public ParagraphBuilder(String text) {
         this.textCache = text;
         builder = new StringBuilder();
     }
 
+    /**
+     * Create the paragraph builder with a initial text.
+     *
+     * @param text the initial text
+     */
     public ParagraphBuilder(@NotNull Text text) {
         this.textCache = text.toString();
         builder = new StringBuilder();
     }
 
-    public ParagraphBuilder append(@NotNull String text) {
+    /**
+     * Append a text to the paragraph.
+     *
+     * @param text the initial text
+     * @return the builder itself
+     */
+    public ParagraphBuilder append(String text) {
         builder.append(textCache);
         textCache = text;
 
         return this;
     }
 
+    /**
+     * Append a text to the paragraph.
+     *
+     * @param text the initial text
+     * @return the builder itself
+     */
     public ParagraphBuilder append(@NotNull Text text) {
         builder.append(textCache);
         textCache = text.toString();
@@ -63,6 +92,12 @@ public class ParagraphBuilder {
         return this;
     }
 
+    /**
+     * Apply the desired text format.
+     *
+     * @param format the desired text format
+     * @return the builder itself
+     */
     public ParagraphBuilder withFormat(TextFormat format) {
         textCache = format.apply(textCache);
         return this;

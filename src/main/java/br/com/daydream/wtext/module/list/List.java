@@ -23,22 +23,25 @@ package br.com.daydream.wtext.module.list;
  */
 
 
+import br.com.daydream.wtext.arq.module.DataContainer;
 import br.com.daydream.wtext.arq.module.Element;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
 /**
  * Represents a list element at the document.
+ * @see ListItem
  *
  * @author hivakun
  * Created on 30/04/16
  */
-public class List extends Element {
+public class List extends Element implements DataContainer {
 
     /**
      * Create a new list element.
+     *
      * @param element the string that represents the element
      */
-    List(String element) {
+    protected List(String element) {
         super(element);
     }
 

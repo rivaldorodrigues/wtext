@@ -27,37 +27,49 @@ import br.com.daydream.wtext.arq.formatter.FormatterFactory;
 import br.com.daydream.wtext.arq.formatter.TableFormatter;
 
 /**
- * @author rivaldo
- * Created on 25/04/2016.
+ * Enum that hold all the parameters that can be applied in a table element.
+ * @see TableFormatter
+ *
+ * @author hivakun
+ * Created on 25/04/16
  */
 public enum TableParameter {
 
     BORDER() {
         @Override
-        public String apply(Object text) {
-            return formatter.border(text);
+        public String apply(Object val) {
+            return formatter.border(val);
         }
     },
 
     CELL_PADDING() {
         @Override
-        public String apply(Object text) {
-            return formatter.cellPadding(text);
+        public String apply(Object val) {
+            return formatter.cellPadding(val);
         }
     },
 
     CELL_SPACING() {
         @Override
-        public String apply(Object text) {
-            return formatter.cellSpacing(text);
+        public String apply(Object val) {
+            return formatter.cellSpacing(val);
         }
     };
 
     final TableFormatter formatter;
 
+    /**
+     * Creates the constants of table parameters.
+     */
     TableParameter() {
         formatter = FormatterFactory.getTableFormatter();
     }
 
-    public abstract String apply(Object text);
+    /**
+     * Apply the desired value to the specified table parameter.
+     *
+     * @param val the desired value
+     * @return the markup text of the table parameter with the desired value
+     */
+    public abstract String apply(Object val);
 }

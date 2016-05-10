@@ -23,8 +23,7 @@ package br.com.daydream.wtext.module.table;
  */
 
 
-import br.com.daydream.wtext.markup.table.CellType;
-import br.com.daydream.wtext.arq.module.Element;
+import br.com.daydream.wtext.arq.module.Text;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
@@ -37,66 +36,42 @@ import java.util.List;
  */
 public class Cells {
 
-    public static Cell newTableCaption(String caption) {
-        return new Cell(caption, CellType.CAPTION);
+    public static Cell newCell(String text) {
+        return new Cell(text);
     }
 
-    public static Cell newTableCaption(@NotNull Element caption) {
-        return new Cell(caption.toString(), CellType.CAPTION);
+    public static Cell newCell(@NotNull Text text) {
+        return new Cell(text.toString());
     }
 
-    public static Cell newTableHeaderCell(String header) {
-        return new Cell(header, CellType.HEADER);
+    public static List<Cell> newCellRow(String... text) {
+        return stringToCell(text);
     }
 
-    public static Cell newTableHeaderCell(@NotNull Element header) {
-        return new Cell(header.toString(), CellType.HEADER);
+    public static List<Cell> newCellRow(Text... text) {
+        return textToCell(text);
     }
 
-    public static List<Cell> newTableHeader(String... header) {
-        return stringToCell(CellType.HEADER, header);
-    }
-
-    public static List<Cell> newTableHeader(Element... header) {
-        return elementToCell(CellType.HEADER, header);
-    }
-
-    public static Cell newTableCell(String cell) {
-        return new Cell(cell, CellType.DATA);
-    }
-
-    public static Cell newTableCell(@NotNull Element cell) {
-        return new Cell(cell.toString(), CellType.DATA);
-    }
-
-    public static List<Cell> newTableRow(String... rows) {
-        return stringToCell(CellType.DATA, rows);
-    }
-
-    public static List<Cell> newTableRow(Element... rows) {
-        return elementToCell(CellType.DATA, rows);
-    }
-
-    private static List<Cell> stringToCell(CellType type, String... rows) {
+    private static List<Cell> stringToCell(String... rows) {
 
         List<Cell> cells = Lists.newArrayList();
 
         if (ArrayUtils.isNotEmpty(rows)) {
             for (String item : rows) {
-                cells.add(new Cell(item, type));
+                cells.add(new Cell(item));
             }
         }
 
         return cells;
     }
 
-    private static List<Cell> elementToCell(CellType type, Element... rows) {
+    private static List<Cell> textToCell(Text... rows) {
 
         List<Cell> cells = Lists.newArrayList();
 
         if (ArrayUtils.isNotEmpty(rows)) {
-            for (Element item : rows) {
-                cells.add(new Cell(item.toString(), type));
+            for (Text item : rows) {
+                cells.add(new Cell(item.toString()));
             }
         }
 

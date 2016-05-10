@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.markup;
+package br.com.daydream.wtext.wiki.formatter;
 
 /*
  * #%L
@@ -23,33 +23,30 @@ package br.com.daydream.wtext.markup;
  */
 
 
-import java.util.stream.IntStream;
+import br.com.daydream.wtext.arq.formatter.SectionFormatter;
+import br.com.daydream.wtext.wiki.markup.WikiSectionMarkup;
 
 /**
- * @author rivaldo
- * Created on 29/04/2016.
+ * Implements the mediawiki section formatting strategy.
+ * @see br.com.daydream.wtext.module.section.Section
+ *
+ * @author hivakun
+ * Created on 01/05/16
  */
-public enum ListType {
+public class WikiSectionFormatter implements SectionFormatter {
 
-    UNORDERED("*", "\n"),
-
-    ORDERED("#", "\n");
-
-    private final String initialMarkup;
-    final String finalMarkup;
-
-    ListType(String initialMarkup, String finalMarkup) {
-        this.initialMarkup = initialMarkup;
-        this.finalMarkup = finalMarkup;
+    @Override
+    public String section(String text) {
+        return WikiSectionMarkup.SECTIONS.apply(text);
     }
 
-    public String apply(int level, String text) {
+    @Override
+    public String subsection(String text) {
+        return WikiSectionMarkup.SUBSECTION.apply(text);
+    }
 
-        StringBuilder builder = new StringBuilder();
-        level = (level > 0) ? level : 1;
-
-        IntStream.rangeClosed(1, level).forEach(value -> builder.append(initialMarkup));
-
-        return builder.append(text).append(finalMarkup).toString();
+    @Override
+    public String subSubsection(String text) {
+        return WikiSectionMarkup.SUB_SUBSECTION.apply(text);
     }
 }

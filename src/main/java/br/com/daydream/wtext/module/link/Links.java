@@ -25,52 +25,111 @@ package br.com.daydream.wtext.module.link;
 
 import br.com.daydream.wtext.arq.formatter.FormatterFactory;
 import br.com.daydream.wtext.arq.formatter.LinkFormatter;
-import br.com.daydream.wtext.markup.LinkType;
-import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
-
-import java.net.URL;
 
 /**
- * Created by Rivaldo on 23/04/16.
+ * Factory class to create links.
+ * @see Link
+ *
+ * @author hivakun
+ * Created on 23/04/16
  */
 public final class Links {
 
     private static LinkFormatter formatter = FormatterFactory.getLinkFormatter();
 
-    public static Link newInternalLink(@NotNull String link) {
+    /**
+     * Create a new internal link.
+     *
+     * @param link the link url
+     * @return the link element that make reference to the url
+     */
+    public static Link newInternalLink(String link) {
         return newInternalLink(link, "");
     }
 
-    public static Link newInternalLink(@NotNull String link, String rename) {
+    /**
+     * Create a new renamed internal link.
+     *
+     * @param link the link url
+     * @param rename the text to replace the link
+     * @return the link element that make reference to the url
+     */
+    public static Link newInternalLink(String link, String rename) {
         return new Link(formatter.internal(link, rename));
     }
 
-    public static Link newExternalLink(@NotNull String link) {
+    /**
+     * Create a new external link.
+     *
+     * @param link the link url
+     * @return the link element that make reference to the url
+     */
+    public static Link newExternalLink(String link) {
         return newExternalLink(link, "");
     }
 
-    public static Link newExternalLink(@NotNull String link, String rename) {
+    /**
+     * Create a new renamed external link.
+     *
+     * @param link the link url
+     * @param rename the text to replace the link
+     * @return the link element that make reference to the url
+     */
+    public static Link newExternalLink(String link, String rename) {
         return new Link(formatter.external(link, rename));
     }
 
-    public static Link newFileLink(@NotNull String link) {
+    /**
+     * Create a new file link.
+     *
+     * @param link the link url
+     * @return the link element that make reference to the url
+     */
+    public static Link newFileLink(String link) {
         return newFileLink(link, "");
     }
 
-    public static Link newFileLink(@NotNull String link, String rename) {
+    /**
+     * Create a new renamed file link.
+     *
+     * @param link the link url
+     * @param rename the text to replace the link
+     * @return the link element that make reference to the url
+     */
+    public static Link newFileLink(String link, String rename) {
         return new Link(formatter.file(link, rename));
     }
 
-    public static Link newSectionLink(@NotNull String section) {
+    /**
+     * Create a new section link.
+     *
+     * @param section the section name
+     * @return the link element that make reference to the section
+     */
+    public static Link newSectionLink(String section) {
         return newSectionLink(section, "", "");
     }
 
-    public static Link newSectionLink(@NotNull String section, String page) {
+    /**
+     * Create a new section link.
+     *
+     * @param section the section name
+     * @param page the page that contains the desired section
+     * @return the link element that make reference to the section
+     */
+    public static Link newSectionLink(String section, String page) {
         return newSectionLink(section, page, "");
     }
 
-    public static Link newSectionLink(@NotNull String section, String page, String rename) {
+    /**
+     * Create a new renamed section link.
+     *
+     * @param section the section name
+     * @param page the page that contains the desired section
+     * @param rename the text to replace the link
+     * @return the link element that make reference to the section
+     */
+    public static Link newSectionLink(String section, String page, String rename) {
         return new Link(formatter.section(section, page, rename));
     }
 }

@@ -25,19 +25,52 @@ package br.com.daydream.wtext.arq.formatter;
 
 import br.com.daydream.wtext.arq.parameter.TableParameter;
 import br.com.daydream.wtext.module.table.Cell;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * @author rivaldo
- *         Created on 04/05/2016.
+ * Interface to all classes that implement the table formatting strategy.
+ * @see br.com.daydream.wtext.module.table.Table
+ *
+ * @author hivakun
+ * Created on 04/05/16
  */
 public interface TableFormatter {
 
-    String border(Object text);
-    String cellPadding(Object text);
-    String cellSpacing(Object text);
+    /**
+     * Apply the desired value to the table border parameter.
+     *
+     * @param val the desired value
+     * @return the markup text of the table border parameter with the desired value
+     */
+    String border(@NotNull Object val);
 
-    String formatTable(List<Cell> header, Cell caption, List<List<Cell>> rows, Map<TableParameter, Object> parameters);
+    /**
+     * Apply the desired value to the table cell padding parameter.
+     *
+     * @param val the desired value
+     * @return the markup text of the table cell padding parameter with the desired value
+     */
+    String cellPadding(@NotNull Object val);
+
+    /**
+     * Apply the desired value to the table cell spacing parameter.
+     *
+     * @param val the desired value
+     * @return the markup text of the table cell spacing parameter with the desired value
+     */
+    String cellSpacing(@NotNull Object val);
+
+    /**
+     * Format the table and apply the specified parameters.
+     *
+     * @param header the table header line
+     * @param caption the table caption
+     * @param rows the list of table rows
+     * @param param an map with all the desired parameters
+     * @return a string formatted with the table markup
+     */
+    String formatTable(List<Cell> header, Cell caption, List<List<Cell>> rows, Map<TableParameter, Object> param);
 }

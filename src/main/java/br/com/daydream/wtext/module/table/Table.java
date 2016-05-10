@@ -23,15 +23,37 @@ package br.com.daydream.wtext.module.table;
  */
 
 
+import br.com.daydream.wtext.arq.module.DataContainer;
 import br.com.daydream.wtext.arq.module.Element;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 /**
- * @author rivaldo
- * Created on 25/04/2016.
+ * Represents a table element at the document.
+ *
+ * @author hivakun
+ * Created on 25/04/16
  */
-public class Table extends Element {
+public class Table extends Element implements DataContainer {
 
-    Table(String element) {
+    /**
+     * Create a new table element.
+     *
+     * @param element the string that represents the element
+     */
+    protected Table(String element) {
         super(element);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (!(o instanceof Table)) return false;
+
+        Table other = (Table) o;
+
+        return new EqualsBuilder()
+                .append(element, other.element)
+                .isEquals();
     }
 }

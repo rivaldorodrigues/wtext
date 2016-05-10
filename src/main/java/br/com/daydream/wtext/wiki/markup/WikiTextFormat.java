@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.markup;
+package br.com.daydream.wtext.wiki.markup;
 
 /*
  * #%L
@@ -24,7 +24,11 @@ package br.com.daydream.wtext.markup;
 
 
 /**
- * Created by Rivaldo on 23/04/16.
+ * Enum that hold all the mediawiki markups for text format.
+ * @see br.com.daydream.wtext.wiki.formatter.WikiTextFormatter
+ *
+ * @author hivakun
+ * Created on 23/04/16
  */
 public enum WikiTextFormat {
 
@@ -49,11 +53,23 @@ public enum WikiTextFormat {
     final String initialMarkup;
     final String finalMarkup;
 
+    /**
+     * Creates the constants of text format markup.
+     *
+     * @param initialMarkup the initial format markup
+     * @param finalMarkup the final format markup
+     */
     WikiTextFormat(String initialMarkup, String finalMarkup) {
         this.initialMarkup = initialMarkup;
         this.finalMarkup = finalMarkup;
     }
 
+    /**
+     * Apply the specified text format.
+     *
+     * @param text the text to be formatted
+     * @return the original text with the desired format markup
+     */
     public String apply(String text) {
         return initialMarkup + text + finalMarkup;
     }

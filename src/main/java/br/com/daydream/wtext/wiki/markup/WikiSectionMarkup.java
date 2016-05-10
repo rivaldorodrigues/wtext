@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.markup;
+package br.com.daydream.wtext.wiki.markup;
 
 /*
  * #%L
@@ -24,9 +24,13 @@ package br.com.daydream.wtext.markup;
 
 
 /**
- * Created by Rivaldo on 23/04/16.
+ * Enum that hold all the mediawiki markups for sections format.
+ * @see br.com.daydream.wtext.wiki.formatter.WikiSectionFormatter
+ *
+ * @author hivakun
+ * Created on 23/04/16
  */
-public enum SectionMarkup {
+public enum WikiSectionMarkup {
 
     SECTIONS("== "," =="),
 
@@ -37,11 +41,23 @@ public enum SectionMarkup {
     private final String initialMarkup;
     private final String finalMarkup;
 
-    SectionMarkup(String initialMarkup, String finalMarkup) {
+    /**
+     * Creates the constants of section format markup.
+     *
+     * @param initialMarkup the initial format markup
+     * @param finalMarkup the final format markup
+     */
+    WikiSectionMarkup(String initialMarkup, String finalMarkup) {
         this.initialMarkup = initialMarkup;
         this.finalMarkup = finalMarkup;
     }
 
+    /**
+     * Apply the specified section format.
+     *
+     * @param text the text to be formatted
+     * @return the original text with the desired section markup
+     */
     public String apply(String text) {
         return initialMarkup + text + finalMarkup;
     }

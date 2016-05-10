@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.markup.table;
+package br.com.daydream.wtext.wiki.markup;
 
 /*
  * #%L
@@ -24,31 +24,44 @@ package br.com.daydream.wtext.markup.table;
 
 
 /**
- * @author rivaldo
- *         Created on 25/04/2016.
+ * Enum that hold all the mediawiki markup for source elements.
+ * @see br.com.daydream.wtext.module.source.Source
+ *
+ * @author hivakun
+ * Created on 26/04/16
  */
-public enum TableMarkup {
+public enum WikiSourceMarkup {
 
-    TABLE_START("{|", "\n"),
+    SOURCE_START("<source", ">\n"),
 
-    TABLE_END("", "|}"),
+    SOURCE_END("", "\n</source>"),
 
-    ROW("|-\n", "\n|-\n"),
+    LANG("lang=\"", "\""),
 
-    BORDER("border=\"", "\""),
+    TITLE("title=\"\'", "\'\""),
 
-    CELL_PADDING("cellpadding=\"", "\""),
-
-    CELL_SPACING("cellspacing=\"", "\"");
+    HIGHLIGHT("highlight=\"[", "]\"");
 
     private final String initialMarkup;
     private final String finalMarkup;
 
-    TableMarkup(String initialMarkup, String finalMarkup) {
+    /**
+     * Creates the constants of mediawiki source markup.
+     *
+     * @param initialMarkup the initial format markup
+     * @param finalMarkup the final format markup
+     */
+    WikiSourceMarkup(String initialMarkup, String finalMarkup) {
         this.initialMarkup = initialMarkup;
         this.finalMarkup = finalMarkup;
     }
 
+    /**
+     * Apply the desired markup to the text.
+     *
+     * @param text the text to be formatted
+     * @return the text formatted with the source markup
+     */
     public String apply(String text) {
         return initialMarkup + text + finalMarkup;
     }

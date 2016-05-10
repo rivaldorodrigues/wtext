@@ -38,9 +38,9 @@ import java.util.Map;
 public class SourceBuilder {
 
     StringBuilder sourcer = new StringBuilder();
-    Map<SourceParameter, String> parameters = Maps.newHashMap();
+    Map<SourceParameter, Object> parameters = Maps.newHashMap();
 
-    private static SourceFormatter formatter = FormatterFactory.getSourceFormatter();
+    private SourceFormatter formatter = FormatterFactory.getSourceFormatter();
 
     public SourceBuilder withLang(String val) {
         parameters.put(SourceParameter.LANG, val);

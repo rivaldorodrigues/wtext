@@ -29,17 +29,52 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 /**
- * Created by Rivaldo on 01/05/16.
+ * Interface to all classes that implement the source formatting strategy.
+ * @see br.com.daydream.wtext.module.source.Source
+ *
+ * @author hivakun
+ * Created on 01/05/16
  */
 public interface SourceFormatter {
 
-    String paramLang(String text);
+    /**
+     * Apply the desired value to the lang source parameter.
+     *
+     * @param val the desired value
+     * @return the markup text of the source lang parameter with the desired value
+     */
+    String paramLang(@NotNull Object val);
 
-    String paramTitle(String text);
+    /**
+     * Apply the desired value to the title source parameter.
+     *
+     * @param val the desired value
+     * @return the markup text of the source title parameter with the desired value
+     */
+    String paramTitle(@NotNull Object val);
 
-    String paramHighlight(String text);
+    /**
+     * Apply the desired value to the highlight source parameter.
+     *
+     * @param val the desired value
+     * @return the markup text of the source highlight parameter with the desired value
+     */
+    String paramHighlight(@NotNull Object val);
 
-    String getHighlightAsText(@NotNull int... val);
+    /**
+     * Get all the highlight line indexes and transform it into a single string.
+     *
+     * @param val the indexes of the lines to be highlighted
+     * @return a single string that represent all the indexes
+     */
+    String getHighlightAsText(int... val);
 
-    String formatSourcer(String sourcer, Map<SourceParameter, String> param);
+    /**
+     * Format the source and apply the specified parameters.
+     *
+     * @param sourcer the source to be formated
+     * @param param an map with all the desired parameters
+     * @return a string formatted with the source markup
+     */
+    String formatSourcer(String sourcer, Map<SourceParameter, Object> param);
 }

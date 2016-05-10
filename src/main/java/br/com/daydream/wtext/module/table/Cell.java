@@ -23,23 +23,24 @@ package br.com.daydream.wtext.module.table;
  */
 
 
-import br.com.daydream.wtext.markup.table.CellType;
-import br.com.daydream.wtext.arq.module.Element;
+import br.com.daydream.wtext.arq.module.Text;
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
- * @author rivaldo
- * Created on 25/04/2016.
+ * Represents a cell element at the document.
+ *
+ * @author hivakun
+ * Created on 25/04/16
  */
-public class Cell extends Element {
+public class Cell extends Text {
 
-    Cell(String element) {
-        this(element, CellType.DATA);
-    }
-
-    Cell(String element, CellType type) {
-        super(type.apply(element));
+    /**
+     * Create a new cell element.
+     *
+     * @param element the string that represents the element
+     */
+    protected Cell(String element) {
+        super(element);
     }
 
     @Override
@@ -53,12 +54,5 @@ public class Cell extends Element {
         return new EqualsBuilder()
                 .append(element, other.element)
                 .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(element)
-                .toHashCode();
     }
 }

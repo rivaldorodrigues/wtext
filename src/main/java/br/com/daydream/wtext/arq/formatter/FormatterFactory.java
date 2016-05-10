@@ -22,7 +22,7 @@ package br.com.daydream.wtext.arq.formatter;
  * #L%
  */
 
-import br.com.daydream.wtext.formatter.*;
+import br.com.daydream.wtext.wiki.formatter.*;
 
 /**
  * Factory responsible for creating the document formatting classes.

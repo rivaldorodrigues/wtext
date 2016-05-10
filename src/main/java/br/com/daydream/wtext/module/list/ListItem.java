@@ -24,10 +24,11 @@ package br.com.daydream.wtext.module.list;
 
 
 import br.com.daydream.wtext.arq.module.Text;
-import org.jetbrains.annotations.NotNull;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 
 /**
  * Represents an item at a list element at the document.
+ * @see List
  *
  * @author hivakun
  * Created on 30/04/16
@@ -37,22 +38,13 @@ public class ListItem extends Text {
     protected int level;
 
     /**
+     * Create a new list item element.
      *
-     * @param level
-     * @param item
+     * @param level the level of the item in the list
+     * @param item  the item
      */
-    public ListItem(int level, String item) {
+    protected ListItem(int level, String item) {
         super(item);
-        this.level = (level > 0) ? level : 1;
-    }
-
-    /**
-     * Cre
-     * @param level
-     * @param item
-     */
-    public ListItem(int level, @NotNull Text item) {
-        super(item.toString());
         this.level = (level > 0) ? level : 1;
     }
 
@@ -63,5 +55,18 @@ public class ListItem extends Text {
      */
     public int getLevel() {
         return level;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (!(o instanceof ListItem)) return false;
+
+        ListItem other = (ListItem) o;
+
+        return new EqualsBuilder()
+                .append(element, other.element)
+                .isEquals();
     }
 }

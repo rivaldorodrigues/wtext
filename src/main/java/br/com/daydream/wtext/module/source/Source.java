@@ -25,15 +25,21 @@ package br.com.daydream.wtext.module.source;
 
 import br.com.daydream.wtext.arq.module.Element;
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
- * @author rivaldo
- * Created on 26/04/2016.
+ * Represents a source element at the document.
+ *
+ * @author hivakun
+ * Created on 26/04/16
  */
 public class Source extends Element {
 
-    Source(String element) {
+    /**
+     * Create a new source element.
+     *
+     * @param element the string that represents the element
+     */
+    protected Source(String element) {
         super(element);
     }
 
@@ -48,12 +54,5 @@ public class Source extends Element {
         return new EqualsBuilder()
                 .append(element, other.element)
                 .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(element)
-                .toHashCode();
     }
 }

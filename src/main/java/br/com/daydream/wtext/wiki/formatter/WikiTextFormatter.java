@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.formatter;
+package br.com.daydream.wtext.wiki.formatter;
 
 /*
  * #%L
@@ -24,7 +24,7 @@ package br.com.daydream.wtext.formatter;
 
 
 import br.com.daydream.wtext.arq.formatter.TextFormatter;
-import br.com.daydream.wtext.markup.WikiTextFormat;
+import br.com.daydream.wtext.wiki.markup.WikiTextFormat;
 
 /**
  * Implements the mediawiki text formatting strategy.

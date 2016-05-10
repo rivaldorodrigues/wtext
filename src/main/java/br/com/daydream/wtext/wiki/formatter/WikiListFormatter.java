@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.formatter;
+package br.com.daydream.wtext.wiki.formatter;
 
 /*
  * #%L
@@ -24,8 +24,9 @@ package br.com.daydream.wtext.formatter;
 
 
 import br.com.daydream.wtext.arq.formatter.ListFormatter;
-import br.com.daydream.wtext.markup.ListType;
+import br.com.daydream.wtext.wiki.markup.WikiListMarkup;
 import br.com.daydream.wtext.module.list.ListItem;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 
@@ -40,17 +41,24 @@ public class WikiListFormatter implements ListFormatter {
 
     @Override
     public String ordered(Collection<ListItem> itens) {
-        return format(itens, ListType.ORDERED);
+        return format(itens, WikiListMarkup.ORDERED);
     }
 
     @Override
     public String unordered(Collection<ListItem> itens) {
-        return format(itens, ListType.UNORDERED);
+        return format(itens, WikiListMarkup.UNORDERED);
     }
 
-    private String format(Collection<ListItem> itens, ListType type) {
+    /**
+     * Format the list of items into the desired list
+     *
+     * @param items the list of items
+     * @param type the desired list type
+     * @return a string formatted with the list markup
+     */
+    private String format(@NotNull Collection<ListItem> items, WikiListMarkup type) {
         StringBuilder sBuilder = new StringBuilder();
-        itens.forEach(item -> sBuilder.append(type.apply(item.getLevel(), item.toString())));
+        items.forEach(item -> sBuilder.append(type.apply(item.getLevel(), item.toString())));
 
         return sBuilder.toString();
     }

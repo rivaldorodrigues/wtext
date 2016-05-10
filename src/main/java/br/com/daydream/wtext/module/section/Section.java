@@ -25,16 +25,22 @@ package br.com.daydream.wtext.module.section;
 
 import br.com.daydream.wtext.arq.module.Text;
 import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
- * @author rivaldo
- *         Created on 26/04/2016.
+ * Represents a section element at the document.
+ *
+ * @author hivakun
+ * Created on 26/04/16
  */
 public class Section extends Text {
 
-    public Section(String text) {
-        super(text);
+    /**
+     * Create a new section element.
+     *
+     * @param element the string that represents the element
+     */
+    protected Section(String element) {
+        super(element);
     }
 
     @Override
@@ -48,12 +54,5 @@ public class Section extends Text {
         return new EqualsBuilder()
                 .append(element, other.element)
                 .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(element)
-                .toHashCode();
     }
 }

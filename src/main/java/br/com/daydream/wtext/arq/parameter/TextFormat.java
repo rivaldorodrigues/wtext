@@ -27,7 +27,11 @@ import br.com.daydream.wtext.arq.formatter.FormatterFactory;
 import br.com.daydream.wtext.arq.formatter.TextFormatter;
 
 /**
- * Created by Rivaldo on 23/04/16.
+ * Enum that hold all the formats that can be applied in a text element.
+ * @see TextFormatter
+ *
+ * @author hivakun
+ * Created on 23/04/16
  */
 public enum TextFormat {
 
@@ -96,9 +100,18 @@ public enum TextFormat {
 
     final TextFormatter formatter;
 
+    /**
+     * Creates the constants of text format.
+     */
     TextFormat() {
         formatter = FormatterFactory.getTextFormat();
     }
 
+    /**
+     * Apply the specified text format.
+     *
+     * @param text the text to be formatted
+     * @return the original text with the desired format markup
+     */
     public abstract String apply(String text);
 }

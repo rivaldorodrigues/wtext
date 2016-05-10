@@ -32,40 +32,78 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 
 /**
- * Created by Rivaldo on 30/04/16.
+ * Builder class to create lists.
+ * @see List
+ *
+ * @author hivakun
+ * Created on 30/04/16
  */
 public class ListBuilder {
 
+    private Collection<ListItem> itens = Lists.newArrayList();
+    private ListFormatter formatter = FormatterFactory.getListFormatter();
+
     private static final int DEFAULT_LEVEL = 1;
 
-    private Collection<ListItem> itens = Lists.newArrayList();
-
-    private static ListFormatter formatter = FormatterFactory.getListFormatter();
-
-    public ListBuilder addItem(@NotNull String text) {
-        return addItem(DEFAULT_LEVEL, text);
+    /**
+     * Add a new item in the list at level one.
+     *
+     * @param item the item to be inserted
+     * @return the builder itself
+     */
+    public ListBuilder addItem(String item) {
+        return addItem(DEFAULT_LEVEL, item);
     }
 
-    public ListBuilder addItem(int level, @NotNull String text) {
-        itens.add(new ListItem(level, text));
+    /**
+     * Add a new item in the list at level one.
+     *
+     * @param item the item to be inserted
+     * @return the builder itself
+     */
+    public ListBuilder addItem(@NotNull Text item) {
+        return addItem(DEFAULT_LEVEL, item);
+    }
+
+    /**
+     * Add a new item in the list at the specified level.
+     *
+     * @param level the item level at the list hierarchy
+     * @param item the item to be inserted
+     * @return the builder itself
+     */
+    public ListBuilder addItem(int level, String item) {
+        itens.add(new ListItem(level, item));
         return this;
     }
 
-    public ListBuilder addItem(@NotNull Text text) {
-        return addItem(DEFAULT_LEVEL, text);
-    }
-
-    public ListBuilder addItem(int level, @NotNull Text text) {
-        itens.add(new ListItem(level, text));
+    /**
+     * Add a new item in the list at the specified level.
+     *
+     * @param level the item level at the list hierarchy
+     * @param item the item to be inserted
+     * @return the builder itself
+     */
+    public ListBuilder addItem(int level, @NotNull Text item) {
+        itens.add(new ListItem(level, item.toString()));
         return this;
     }
 
+    /**
+     * Create an unordered list.
+     *
+     * @return the list element
+     */
     public List buildUnorderedList() {
         return new List(formatter.unordered(itens));
     }
 
+    /**
+     * Create an ordered list.
+     *
+     * @return the list element
+     */
     public List buildOrderedList() {
         return new List(formatter.ordered(itens));
     }
-
 }

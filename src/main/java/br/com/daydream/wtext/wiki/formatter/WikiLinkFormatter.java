@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.formatter;
+package br.com.daydream.wtext.wiki.formatter;
 
 /*
  * #%L
@@ -24,7 +24,7 @@ package br.com.daydream.wtext.formatter;
 
 
 import br.com.daydream.wtext.arq.formatter.LinkFormatter;
-import br.com.daydream.wtext.markup.LinkType;
+import br.com.daydream.wtext.wiki.markup.WikiLinkMarkup;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,18 +40,18 @@ public class WikiLinkFormatter implements LinkFormatter {
     private static final String SECTION_SEPARATOR = "#";
 
     @Override
-    public String internal(String text, String rename) {
-        return LinkType.INTERNAL.apply(text, rename);
+    public String internal(String url, String rename) {
+        return WikiLinkMarkup.INTERNAL.apply(url, rename);
     }
 
     @Override
-    public String external(String text, String rename) {
-        return LinkType.EXTERNAL.apply(text, rename);
+    public String external(String url, String rename) {
+        return WikiLinkMarkup.EXTERNAL.apply(url, rename);
     }
 
     @Override
-    public String file(String text, String rename) {
-        return LinkType.FILE.apply(text, rename);
+    public String file(String url, String rename) {
+        return WikiLinkMarkup.FILE.apply(url, rename);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class WikiLinkFormatter implements LinkFormatter {
     }
 
     /**
-     * Gets the url for a section link.
+     * Get the url for a section link.
      *
      * @param section the section which the link should point
      * @param page the page that contains the desired section

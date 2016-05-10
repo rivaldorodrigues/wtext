@@ -36,6 +36,7 @@ public class Link extends Text {
 
     /**
      * Create a new link element.
+     *
      * @param element the string that represents the element
      */
     protected Link(String element) {

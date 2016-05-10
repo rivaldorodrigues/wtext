@@ -1,4 +1,4 @@
-package br.com.daydream.wtext.markup.table;
+package br.com.daydream.wtext.wiki.markup;
 
 /*
  * #%L
@@ -24,10 +24,25 @@ package br.com.daydream.wtext.markup.table;
 
 
 /**
- * @author rivaldo
- *         Created on 25/04/2016.
+ * Enum that hold all the mediawiki markups for text format.
+ * @see br.com.daydream.wtext.wiki.formatter.WikiTableFormatter
+ *
+ * @author hivakun
+ * Created on 25/04/16
  */
-public enum CellType {
+public enum WikiTableMarkup {
+
+    TABLE_START("{|", "\n"),
+
+    TABLE_END("", "|}"),
+
+    ROW("|-\n", "\n|-\n"),
+
+    BORDER("border=\"", "\""),
+
+    CELL_PADDING("cellpadding=\"", "\""),
+
+    CELL_SPACING("cellspacing=\"", "\""),
 
     CAPTION("|+ ","\n"),
 
@@ -38,11 +53,23 @@ public enum CellType {
     private final String initialMarkup;
     private final String finalMarkup;
 
-    CellType(String initialMarkup, String finalMarkup) {
+    /**
+     * Creates the constants of table format markup.
+     *
+     * @param initialMarkup the initial format markup
+     * @param finalMarkup the final format markup
+     */
+    WikiTableMarkup(String initialMarkup, String finalMarkup) {
         this.initialMarkup = initialMarkup;
         this.finalMarkup = finalMarkup;
     }
 
+    /**
+     * Apply the specified table format.
+     *
+     * @param text the text to be formatted
+     * @return the original text with the desired table markup
+     */
     public String apply(String text) {
         return initialMarkup + text + finalMarkup;
     }

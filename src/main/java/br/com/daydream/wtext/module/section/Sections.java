@@ -25,38 +25,46 @@ package br.com.daydream.wtext.module.section;
 
 import br.com.daydream.wtext.arq.formatter.FormatterFactory;
 import br.com.daydream.wtext.arq.formatter.SectionFormatter;
-import br.com.daydream.wtext.arq.module.Text;
-import org.jetbrains.annotations.NotNull;
+import br.com.daydream.wtext.module.link.Link;
 
 /**
- * @author rivaldo
- * Created on 26/04/2016.
+ * Factory class to create links.
+ * @see Link
+ *
+ * @author hivakun
+ * Created on 26/04/16
  */
 public class Sections {
 
     private static SectionFormatter formatter = FormatterFactory.getSectionFormatter();
 
-    public static Section newSection(@NotNull String text) {
+    /**
+     * Create a new section.
+     *
+     * @param text the desired section text
+     * @return the section element
+     */
+    public static Section newSection(String text) {
         return new Section(formatter.section(text));
     }
 
-    public static Section newSection(@NotNull Text text) {
-        return newSection(text.toString());
-    }
-
-    public static Section newSubsection(@NotNull String text) {
+    /**
+     * Create a new subsection.
+     *
+     * @param text the desired subsection text
+     * @return the subsection element
+     */
+    public static Section newSubsection(String text) {
         return new Section(formatter.subsection(text));
     }
 
-    public static Section newSubsection(@NotNull Text text) {
-        return newSubsection(text.toString());
-    }
-
-    public static Section newSubSubsection(@NotNull String text) {
+    /**
+     * Create a new sub-subsection.
+     *
+     * @param text the desired sub-subsection text
+     * @return the sub-subsection element
+     */
+    public static Section newSubSubsection(String text) {
         return new Section(formatter.subSubsection(text));
-    }
-
-    public static Section newSubSubsection(@NotNull Text text) {
-        return new Section(formatter.subSubsection(text.toString()));
     }
 }
