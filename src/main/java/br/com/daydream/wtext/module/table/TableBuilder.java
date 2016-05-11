@@ -33,77 +33,150 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author rivaldo
- * Created on 25/04/2016.
+ * Builder class to create table.
+ * @see Table
+ *
+ * @author hivakun
+ * Created on 25/04/16
  */
 public class TableBuilder {
 
-    List<Cell> header;
-    Cell caption = null;
-    List<List<Cell>> rows = Lists.newArrayList();
+    private List<Cell> header;
+    private String caption = null;
+    private List<List<Cell>> rows = Lists.newArrayList();
 
-    Map<TableParameter, Object> parameters = Maps.newHashMap();
+    private Map<TableParameter, Object> parameters = Maps.newHashMap();
 
     private TableFormatter formatter = FormatterFactory.getTableFormatter();
 
+    /**
+     * Create the table builder.
+     */
     public TableBuilder() {
         this.header = Lists.newArrayList();
         addDefaultParameters();
     }
 
+    /**
+     * Create the table builder with the desired header.
+     *
+     * @param header the table header
+     */
     public TableBuilder(List<Cell> header) {
         this.header = header;
         addDefaultParameters();
     }
 
+    /**
+     * Define the table header.
+     *
+     * @param val the desired table header
+     * @return the builder itself
+     */
     public TableBuilder withHeader(List<Cell> val) {
         this.header = val;
         return this;
     }
 
-    public TableBuilder withCaption(Cell val) {
+    /**
+     * Define the table caption.
+     *
+     * @param val the desired table caption
+     * @return the builder itself
+     */
+    public TableBuilder withCaption(String val) {
         this.caption = val;
         return this;
     }
 
+    /**
+     * Add the desired cell to the table header.
+     *
+     * @param val the cell to be appended to the header
+     * @return the builder itself
+     */
     public TableBuilder addHeader(Cell val) {
         header.add(val);
         return this;
     }
 
+    /**
+     * Add a new row to the table.
+     * @param row the cell list representing the row
+     *
+     * @return the builder itself
+     */
     public TableBuilder addNewRow(List<Cell> row) {
         this.rows.add(row);
         return this;
     }
 
+    /**
+     * Add a cell to a specific table row.
+     *
+     * @param rowIndex the index of the row
+     * @param cell the cell to be appended
+     * @return the builder itself
+     */
     public TableBuilder addNewCell(int rowIndex, Cell cell) {
         this.rows.get(rowIndex).add(cell);
         return this;
     }
 
+    /**
+     * Define the table border.
+     *
+     * @param val the desired table border
+     * @return the builder itself
+     */
     public TableBuilder withBorder(int val) {
         parameters.put(TableParameter.BORDER, val);
         return this;
     }
 
+    /**
+     * Define the table cell padding.
+     *
+     * @param val the desired table cell padding
+     * @return the builder itself
+     */
     public TableBuilder withCellpadding(int val) {
         parameters.put(TableParameter.CELL_PADDING, val);
         return this;
     }
 
+    /**
+     * Define the table cell spacing.
+     *
+     * @param val the desired table cell spacing
+     * @return the builder itself
+     */
     public TableBuilder withCellspacing(int val) {
         parameters.put(TableParameter.CELL_SPACING, val);
         return this;
     }
 
+    /**
+     * Checks if the table has no element (header or rows).
+     *
+     * @return true if the table has no elements, false otherwise
+     */
     public boolean isEmptyTable() {
         return header.isEmpty() && rows.isEmpty();
     }
 
-    public Table build() {
+    /**
+     * Create a table.
+     *
+     * @return the table element
+     */
+    public Table buildTable() {
         return new Table(formatter.formatTable(header,caption,rows,parameters));
     }
 
+    /**
+     * Initialize the table with default parameters.
+     */
     private void addDefaultParameters() {
         withBorder(1);
         withCellpadding(2);

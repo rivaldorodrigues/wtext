@@ -32,26 +32,47 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.Map;
 
 /**
- * @author rivaldo
- *         Created on 26/04/2016.
+ * Builder class to create source.
+ * @see Source
+ *
+ * @author hivakun
+ * Created on 23/04/16
  */
 public class SourceBuilder {
 
-    StringBuilder sourcer = new StringBuilder();
-    Map<SourceParameter, Object> parameters = Maps.newHashMap();
+    private StringBuilder sourcer = new StringBuilder();
+    private Map<SourceParameter, Object> parameters = Maps.newHashMap();
 
     private SourceFormatter formatter = FormatterFactory.getSourceFormatter();
 
+    /**
+     * Define the source language.
+     *
+     * @param val the desired source language
+     * @return the builder itself
+     */
     public SourceBuilder withLang(String val) {
         parameters.put(SourceParameter.LANG, val);
         return this;
     }
 
+    /**
+     * Define the source title.
+     *
+     * @param val the desired source title
+     * @return the builder itself
+     */
     public SourceBuilder withTitle(String val) {
         parameters.put(SourceParameter.TITLE, val);
         return this;
     }
 
+    /**
+     * Define the source line to be highlighted.
+     *
+     * @param val the desired source lines
+     * @return the builder itself
+     */
     public SourceBuilder withHighLight(int... val) {
 
         if (ArrayUtils.isNotEmpty(val)) {
@@ -61,17 +82,23 @@ public class SourceBuilder {
         return this;
     }
 
-    public SourceBuilder append(String source) {
-        sourcer.append(source);
+    /**
+     * Append a text to the source.
+     *
+     * @param text the text to be appended
+     * @return the builder itself
+     */
+    public SourceBuilder append(String text) {
+        sourcer.append(text);
         return this;
     }
 
-    public SourceBuilder newLine() {
-        sourcer.append("\n");
-        return this;
-    }
-
-    public Source build() {
+    /**
+     * Create a source.
+     *
+     * @return the source element
+     */
+    public Source buildSource() {
         return new Source(formatter.formatSourcer(sourcer.toString(), parameters));
     }
 

@@ -61,7 +61,7 @@ public class WikiTableFormatter implements TableFormatter {
     }
 
     @Override
-    public String formatTable(List<Cell> header, Cell caption, List<List<Cell>> rows, Map<TableParameter, Object> parameters) {
+    public String formatTable(List<Cell> header, String caption, List<List<Cell>> rows, Map<TableParameter, Object> parameters) {
 
         StringBuilder sBuilder = new StringBuilder(initTableAndStyle(parameters));
 
@@ -95,8 +95,8 @@ public class WikiTableFormatter implements TableFormatter {
      * @param caption the desired caption
      * @return a string formatted with the caption markup
      */
-    private String addCaption(Cell caption) {
-        return caption == null ? "" : WikiTableMarkup.CAPTION.apply(caption.toString());
+    private String addCaption(String caption) {
+        return StringUtils.isNoneBlank(caption) ? "" : WikiTableMarkup.CAPTION.apply(caption);
     }
 
     /**

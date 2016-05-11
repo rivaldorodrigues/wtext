@@ -23,6 +23,7 @@ package br.com.daydream.wtext.module.table;
  */
 
 
+import br.com.daydream.wtext.arq.module.DataContainer;
 import br.com.daydream.wtext.arq.module.Text;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
@@ -32,7 +33,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
  * @author hivakun
  * Created on 25/04/16
  */
-public class Cell extends Text {
+public class Cell extends Text implements DataContainer {
 
     /**
      * Create a new cell element.

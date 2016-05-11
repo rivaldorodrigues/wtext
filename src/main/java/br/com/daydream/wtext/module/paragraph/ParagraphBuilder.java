@@ -69,7 +69,7 @@ public class ParagraphBuilder {
     /**
      * Append a text to the paragraph.
      *
-     * @param text the initial text
+     * @param text the text to be appended
      * @return the builder itself
      */
     public ParagraphBuilder append(String text) {
@@ -82,7 +82,7 @@ public class ParagraphBuilder {
     /**
      * Append a text to the paragraph.
      *
-     * @param text the initial text
+     * @param text the text to be appended
      * @return the builder itself
      */
     public ParagraphBuilder append(@NotNull Text text) {
@@ -103,6 +103,11 @@ public class ParagraphBuilder {
         return this;
     }
 
+    /**
+     * Create a paragraph.
+     *
+     * @return the paragraph element
+     */
     public Paragraph buildParagraph() {
         builder.append(textCache);
         return new Paragraph(builder.toString());

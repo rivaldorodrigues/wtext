@@ -24,6 +24,7 @@ package br.com.daydream;
 
 
 import br.com.daydream.wtext.WikiPage;
+import br.com.daydream.wtext.arq.Document;
 import br.com.daydream.wtext.arq.module.Text;
 import br.com.daydream.wtext.module.link.Links;
 import br.com.daydream.wtext.module.list.ListBuilder;
@@ -49,7 +50,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        try(WikiPage page = new WikiPage(new FileOutputStream("teste.txt"))) {
+        try(Document page = new WikiPage(new FileOutputStream("teste.txt"))) {
 
             Text titulo = Sections.newSection("Inicio da página");
             Text tituloTabela = Sections.newSubsection("Aqui vem uma tabela");
@@ -85,20 +86,20 @@ public class App
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        } ;
+        }
     }
 
     public static Table criarTabela() {
-        Cell legenda = Cells.newTableCaption("Legenda");
-        List<Cell> cabecalho = Cells.newTableHeader("Data", "Versão", "Revisão", "Homologação", "Produção");
-        List<Cell> linha = Cells.newTableRow("18/12/2015", "1.5.2", "--", "--", "[[Arquivo:SGM v1.5.2.zip]]");
+
+        List<Cell> cabecalho = Cells.newCellRow("Data", "Versão", "Revisão", "Homologação", "Produção");
+        List<Cell> linha = Cells.newCellRow("18/12/2015", "1.5.2", "--", "--", "[[Arquivo:SGM v1.5.2.zip]]");
 
         TableBuilder builder = new TableBuilder(cabecalho);
-        builder.withCaption(legenda);
+        builder.withCaption("Legenda");
         builder.addNewRow(linha);
         builder.addNewRow(linha);
 
-        return builder.build();
+        return builder.buildTable();
     }
 
     public static br.com.daydream.wtext.module.list.List criarLista() {
@@ -131,6 +132,6 @@ public class App
 
         builder.append(s);
 
-        return builder.build();
+        return builder.buildSource();
     }
 }

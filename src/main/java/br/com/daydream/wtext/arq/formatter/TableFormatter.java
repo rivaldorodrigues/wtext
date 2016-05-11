@@ -72,5 +72,5 @@ public interface TableFormatter {
      * @param param an map with all the desired parameters
      * @return a string formatted with the table markup
      */
-    String formatTable(List<Cell> header, Cell caption, List<List<Cell>> rows, Map<TableParameter, Object> param);
+    String formatTable(List<Cell> header, String caption, List<List<Cell>> rows, Map<TableParameter, Object> param);
 }

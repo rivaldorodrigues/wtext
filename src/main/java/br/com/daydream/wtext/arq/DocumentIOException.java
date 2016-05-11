@@ -1,4 +1,4 @@
-package br.com.daydream.wtext;
+package br.com.daydream.wtext.arq;
 
 /*
  * #%L
@@ -23,25 +23,45 @@ package br.com.daydream.wtext;
  */
 
 
-import br.com.daydream.wtext.arq.Document;
-import org.jetbrains.annotations.NotNull;
-
-import java.io.OutputStream;
-
 /**
- * Represents a wiki page document that can be written into a file.
+ * A runtime document IOException
  *
  * @author hivakun
  * Created on 11/05/16
  */
-public class WikiPage extends Document {
+public class DocumentIOException extends RuntimeException {
 
     /**
-     * Creates a new wiki page.
-     *
-     * @param output the output document file
+     * Create a new document exception.
      */
-    public  WikiPage(@NotNull OutputStream output) {
-        super(output);
+    public DocumentIOException() {
+    }
+
+    /**
+     * Create a new document exception.
+     *
+     * @param message the error message
+     */
+    public DocumentIOException(String message) {
+        super(message);
+    }
+
+    /**
+     * Create a new document exception.
+     *
+     * @param message the error message
+     * @param cause the error cause
+     */
+    public DocumentIOException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    /**
+     * Create a new document exception.
+     *
+     * @param cause the error cause
+     */
+    public DocumentIOException(Throwable cause) {
+        super(cause);
     }
 }

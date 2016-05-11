@@ -30,28 +30,64 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+
 /**
- * @author rivaldo
- * Created on 26/04/2016.
+ * Factory class to create cells.
+ * @see Cell
+ *
+ * @author hivakun
+ * Created on 26/04/16
  */
 public class Cells {
 
+    /**
+     * Create a new cell.
+     *
+     * @param text the cell text
+     * @return the cell element that contains the desired text
+     */
     public static Cell newCell(String text) {
         return new Cell(text);
     }
 
+    /**
+     * Create a new cell.
+     *
+     * @param text the cell text
+     * @return the cell element that contains the desired text
+     */
     public static Cell newCell(@NotNull Text text) {
         return new Cell(text.toString());
     }
 
+    /**
+     * Create a new cells row.
+     * Represented by a list of cells.
+     *
+     * @param text the text of each cell
+     * @return a list of cells with their corresponding text
+     */
     public static List<Cell> newCellRow(String... text) {
         return stringToCell(text);
     }
 
+    /**
+     * Create a new cells row.
+     * Represented by a list of cells.
+     *
+     * @param text the text of each cell
+     * @return a list of cells with their corresponding text
+     */
     public static List<Cell> newCellRow(Text... text) {
         return textToCell(text);
     }
 
+    /**
+     * Transform a string list into a cell list.
+     *
+     * @param rows a list with the cell text
+     * @return a list of cells with their corresponding text
+     */
     private static List<Cell> stringToCell(String... rows) {
 
         List<Cell> cells = Lists.newArrayList();
@@ -65,6 +101,12 @@ public class Cells {
         return cells;
     }
 
+    /**
+     * Transform a text list into a cell list.
+     *
+     * @param rows a list with the cell text
+     * @return a list of cells with their corresponding text
+     */
     private static List<Cell> textToCell(Text... rows) {
 
         List<Cell> cells = Lists.newArrayList();
