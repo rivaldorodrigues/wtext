@@ -46,7 +46,7 @@ public enum WikiTextFormat {
 
     BIG("<big>", "</big>"),
 
-    BLOCKQUOTE("<blockquote>\n", "\n</blockquote>"),
+    BLOCKQUOTE("<blockquote>", "</blockquote>"),
 
     CENTER("<center>", "</center>");
 
