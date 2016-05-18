@@ -2,35 +2,55 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>br.com.daydream</groupId>
-    <artifactId>WText</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.github.hivakun</groupId>
+    <artifactId>wtext</artifactId>
+    <version>1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>WText</name>
     <inceptionYear>2016</inceptionYear>
-    <description>A simple java library to create wiki pages</description>
-    <url>https://github.com/hivakun/entity-cloner</url>
+    <description>A simple java library to create wiki pages formatted with mediawiki markup</description>
+    <url>https://github.com/hivakun/wtext</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <organization>
-        <name>Daydream</name>
+        <name>Rivaldo Rodrigues</name>
     </organization>
 
     <developers>
         <developer>
             <id>hivakun</id>
             <name>Rivaldo Rodrigues</name>
-            <email>rivaldo@logiquesistemas.com.br</email>
+            <email>hiva.rodrigues@gmail.com</email>
+            <organization>GitHub</organization>
+            <organizationUrl>http://hivakun.github.io/</organizationUrl>
             <roles>
                 <role>architect</role>
                 <role>developer</role>
             </roles>
         </developer>
     </developers>
+
+    <licenses>
+        <license>
+            <name>GNU General Public License (GPL)</name>
+            <url>http://www.gnu.org/licenses/gpl.txt</url>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <url>https://github.com/hivakun/wtext/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
+    <scm>
+        <url>https://github.com/hivakun/wtext</url>
+        <connection>scm:git:git://github.com/hivakun/wtext.git</connection>
+        <developerConnection>scm:git:git@github.com:hivakun/wtext.git</developerConnection>
+    </scm>
 
     <dependencies>
         <dependency>
@@ -114,6 +134,21 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>license-maven-plugin</artifactId>
                 <version>1.8</version>
@@ -137,6 +172,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
