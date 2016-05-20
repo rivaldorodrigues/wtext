@@ -6,7 +6,7 @@ This project aims to make the task of creating and writing wiki documents in Jav
 
 To do this, this library encapsulates a set of elements, commonly used in wiki pages (such as paragraphs, tables, source code, links and lists) and represents these elements into classes, allowing easy handling of these elements by Java developers without having to work with the wiki markup language.
 
-##How to use
+## How to use
 
 The artifact is in the [Maven Central](http://search.maven.org/) repository so all you need to do is add it as a dependency in your project.
 
