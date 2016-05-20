@@ -60,7 +60,7 @@ public class Text extends Element {
      *
      * @param format the style to format the text
      */
-    protected void format(TextFormat format) {
+    public void format(TextFormat format) {
         element = format.apply(element);
     }
 

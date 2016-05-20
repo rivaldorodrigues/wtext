@@ -23,7 +23,7 @@ package com.github.hivakun.wtext.module.section;
  */
 
 
-import com.github.hivakun.wtext.arq.module.Text;
+import com.github.hivakun.wtext.arq.module.Element;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 
 /**
@@ -32,7 +32,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
  * @author hivakun
  * Created on 26/04/16
  */
-public class Section extends Text {
+public class Section extends Element {
 
     /**
      * Create a new section element.
