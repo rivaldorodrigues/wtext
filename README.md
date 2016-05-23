@@ -30,7 +30,7 @@ compile 'com.github.hivakun:wtext:1.0.0'
 
 ### Creating a document
 
-Now that everything is set, you need an instance of `Document`. The `Documents` class is a factory that allows easy creation of documents with the dialect that will be used to write the document and the output where the information will be written.
+Now that everything is set, you need an instance of `Document`. The `Documents` class is a factory that allows easy creation of documents with the dialect that will be used to write and the output where the information will be written.
 
 ```java
 Documents.newWikiPage(DocumentFormat.MEDIAWIKI, new FileOutputStream("MyPage.txt"));
@@ -48,7 +48,7 @@ Now that you have an instance of `Document` it is possible to add elements such 
 
 For details of each element, visit the [project wiki](https://github.com/hivakun/wtext/wiki) or just check out our [complete example](https://github.com/hivakun/wtext/wiki/Complete-Sample) which use the most common elements.
 
-The example below shows how to create your fist wiki page with a simple paragraph.
+The example below shows how to create your fist wiki page with a single paragraph.
 
 ```java
 import com.github.hivakun.wtext.arq.parameter.TextFormat;
