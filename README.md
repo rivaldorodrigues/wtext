@@ -2,7 +2,7 @@
 
 WText is a simple java library to create wiki pages formatted with *Mediawiki* markup.
 
-This project aims to make the task of creating and writing wiki documents in Java much more easier.
+This project aims to make the task of creating and writing wiki documents in Java much easier.
 
 To do this, this library encapsulates a set of elements, commonly used in wiki pages (such as paragraphs, tables, source code, links and lists) and represents these elements into classes, allowing easy handling of these elements by Java developers without having to work with the wiki markup language.
 
