@@ -46,7 +46,7 @@ Documents.newWikiPage(new FileOutputStream("MyPage.txt"));
 
 Now that you have an instance of `Document` it is possible to add elements such as paragraphs, tables, source code, links and lists.
 
-For details of each element, visit the [project wiki](https://github.com/hivakun/wtext/wiki) or just check out our [complete example](https://github.com/hivakun/wtext/wiki/Complete-Sample) which use the most common elements.
+For details of each element, visit the [project wiki](https://github.com/hivakun/wtext/wiki) or just check out our [complete example](https://github.com/hivakun/wtext/wiki/Complete-Sample) which uses the most common elements.
 
 The example below shows how to create your fist wiki page with a single paragraph.
 
