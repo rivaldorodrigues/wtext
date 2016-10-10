@@ -4,7 +4,7 @@ package com.github.hivakun.wtext.module.link;
  * #%L
  * WText
  * %%
- * Copyright (C) 2016 Daydream
+ * Copyright (C) 2016 Rivaldo Rodrigues
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as

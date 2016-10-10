@@ -4,7 +4,7 @@ package com.github.hivakun.wtext.wiki.formatter;
  * #%L
  * WText
  * %%
- * Copyright (C) 2016 Daydream
+ * Copyright (C) 2016 Rivaldo Rodrigues
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -21,6 +21,7 @@ package com.github.hivakun.wtext.wiki.formatter;
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
+
 
 import com.github.hivakun.wtext.arq.formatter.*;
 
