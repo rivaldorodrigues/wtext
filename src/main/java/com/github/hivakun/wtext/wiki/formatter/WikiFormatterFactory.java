@@ -62,4 +62,14 @@ public class WikiFormatterFactory implements FormatterFactory {
     public TableFormatter getTableFormatter() {
         return new WikiTableFormatter();
     }
+
+    @Override
+    public TableRowFormatter getTableRowFormatter() {
+        return new WikiTableRowFormatter();
+    }
+
+    @Override
+    public TableCellFormatter getTableCellFormatter() {
+        return new WikiTableCellFormatter();
+    }
 }

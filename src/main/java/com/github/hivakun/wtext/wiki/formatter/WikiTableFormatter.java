@@ -4,7 +4,7 @@ package com.github.hivakun.wtext.wiki.formatter;
  * #%L
  * WText
  * %%
- * Copyright (C) 2016 Daydream
+ * Copyright (C) 2016 Rivaldo Rodrigues
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -26,8 +26,10 @@ package com.github.hivakun.wtext.wiki.formatter;
 import com.github.hivakun.wtext.arq.formatter.TableFormatter;
 import com.github.hivakun.wtext.arq.parameter.TableParameter;
 import com.github.hivakun.wtext.module.table.Cell;
+import com.github.hivakun.wtext.module.table.Row;
 import com.github.hivakun.wtext.module.table.Table;
 import com.github.hivakun.wtext.wiki.markup.WikiTableMarkup;
+import com.google.common.collect.Lists;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +38,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
+import static java.awt.SystemColor.text;
 
 /**
  * Implements the mediawiki table formatting strategy.
@@ -46,8 +50,14 @@ import java.util.Objects;
  */
 public class WikiTableFormatter implements TableFormatter {
 
+    private static final String PARAMETER_SEPARATOR = " ";
+
+    private static final String COLUMN_PARAMETER_SEPARATOR = "|";
+
+    private static final String COLUMN_CELL_SEPARATOR = "||";
+
     @Override
-    public String border(@NotNull Object text) {
+    public String tableBorder(@NotNull Object text) {
         return WikiTableMarkup.BORDER.apply(text.toString());
     }
 
@@ -62,9 +72,19 @@ public class WikiTableFormatter implements TableFormatter {
     }
 
     @Override
-    public String formatTable(List<Cell> header, String caption, List<List<Cell>> rows, Map<TableParameter, Object> parameters) {
+    public String tableClass(@NotNull Object text) {
+        return WikiTableMarkup.TABLE_CLASS.apply(text.toString());
+    }
 
-        StringBuilder sBuilder = new StringBuilder(initTableAndStyle(parameters));
+    @Override
+    public String style(@NotNull Object val) {
+        return WikiTableMarkup.STYLE.apply(text.toString());
+    }
+
+    @Override
+    public String formatTable(Row header, String caption, List<Row> rows, Map<TableParameter, Object> parameters, List<String> tableClasses) {
+
+        StringBuilder sBuilder = new StringBuilder(initTableAndStyle(parameters, tableClasses));
 
         sBuilder.append(addCaption(caption));
         sBuilder.append(addHeader(header));
@@ -77,14 +97,19 @@ public class WikiTableFormatter implements TableFormatter {
      * Initialize the table markup with the specified parameters.
      *
      * @param param the desired parameters
+     * @param tableClasses the css classes to be applied to the table
      * @return a string formatted with the source markup
      */
-    private String initTableAndStyle(Map<TableParameter, Object> param) {
+    private String initTableAndStyle(Map<TableParameter, Object> param, List<String> tableClasses) {
 
         StringBuilder sBuilder = new StringBuilder();
 
+        if (CollectionUtils.isNotEmpty(tableClasses)) {
+            sBuilder.append(PARAMETER_SEPARATOR).append(WikiTableMarkup.TABLE_CLASS.apply(String.join(PARAMETER_SEPARATOR, tableClasses)));
+        }
+
         if (MapUtils.isNotEmpty(param)) {
-            param.forEach((k, v) -> sBuilder.append(" ").append(k.apply(v)));
+            param.forEach((k, v) -> sBuilder.append(PARAMETER_SEPARATOR).append(k.apply(v)));
         }
 
         return WikiTableMarkup.TABLE_START.apply(sBuilder.toString());
@@ -106,8 +131,8 @@ public class WikiTableFormatter implements TableFormatter {
      * @param header the desired header row
      * @return a string formatted with the header markup
      */
-    private String addHeader(List<Cell> header) {
-        return iterateCellList(header, WikiTableMarkup.HEADER);
+    private String addHeader(Row header) {
+        return createHeader(header);
     }
 
     /**
@@ -116,51 +141,63 @@ public class WikiTableFormatter implements TableFormatter {
      * @param rows the list of rows
      * @return a string formatted with the row markup
      */
-    private String addRows(List<List<Cell>> rows) {
+    private String addRows(List<Row> rows) {
 
         String result = "";
 
         if (CollectionUtils.isNotEmpty(rows)) {
             StringBuilder sBuilder = new StringBuilder();
-            rows.forEach(row -> sBuilder.append(addRow(row)));
+            rows.forEach(row -> sBuilder.append(createRow(row)));
             result = sBuilder.toString();
         }
 
         return result;
     }
 
-    /**
-     * Add a single row to the table.
-     *
-     * @param row the desired row
-     * @return a string formatted with the row markup
-     */
-    private String addRow(List<Cell> row) {
-
-        String result = iterateCellList(row, WikiTableMarkup.DATA);
-
-        if (StringUtils.isNotEmpty(result)) {
-            result = WikiTableMarkup.ROW.apply(result);
-        }
-
-        return result;
-    }
-
-    /**
-     * Iterate through a list of cell and format it with a specific type.
-     *
-     * @param data a list of cells that represents a row
-     * @param type the cell type
-     * @return a string formatted with the row type markup
-     */
-    private String iterateCellList(List<Cell> data, WikiTableMarkup type) {
+    private String createHeader(@NotNull Row data) {
 
         StringBuilder sBuilder = new StringBuilder();
 
-        if (CollectionUtils.isNotEmpty(data)) {
-            data.stream().filter(Objects::nonNull).forEach(item -> sBuilder.append(type.apply(item.toString())));
+        if (CollectionUtils.isNotEmpty(data.getRowAsList())) {
+            data.getRowAsList().stream().filter(Objects::nonNull).forEach(item -> sBuilder.append(WikiTableMarkup.HEADER.apply(cellToString(item))));
         }
 
         return sBuilder.toString();
+    }
+
+    private String createRow(@NotNull Row row) {
+        StringBuilder sBuilder = new StringBuilder(initRow(row));
+        String rowData = WikiTableMarkup.ROW_DATA.apply(String.join(COLUMN_CELL_SEPARATOR, cellToString(row.getRowAsList())));
+
+        sBuilder.append(rowData);
+        return WikiTableMarkup.ROW_END.apply(sBuilder.toString());
+    }
+
+    private String initRow(@NotNull Row row) {
+
+        StringBuilder sBuilder = new StringBuilder();
+
+        if (MapUtils.isNotEmpty(row.getParameters())) {
+            row.getParameters().forEach((k, v) -> sBuilder.append(PARAMETER_SEPARATOR).append(k.apply(v)));
+        }
+
+        return WikiTableMarkup.ROW_START.apply(sBuilder.toString());
+    }
+
+    private String cellToString(@NotNull Cell cell) {
+        StringBuilder sBuilder = new StringBuilder("");
+
+        if (MapUtils.isNotEmpty(cell.getParameters())) {
+            cell.getParameters().forEach((k, v) -> sBuilder.append(PARAMETER_SEPARATOR).append(k.apply(v)));
+            sBuilder.append(COLUMN_PARAMETER_SEPARATOR);
+        }
+
+        return sBuilder.append(cell.toString()).toString();
+    }
+
+    private List<String> cellToString(@NotNull List<Cell> cells) {
+        List<String> values = Lists.newArrayList();
+        cells.stream().filter(Objects::nonNull).forEach(cell -> values.add(cellToString(cell)));
+        return values;
     }
 }

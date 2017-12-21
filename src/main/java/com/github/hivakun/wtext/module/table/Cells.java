@@ -4,7 +4,7 @@ package com.github.hivakun.wtext.module.table;
  * #%L
  * WText
  * %%
- * Copyright (C) 2016 Daydream
+ * Copyright (C) 2016 Rivaldo Rodrigues
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -24,19 +24,20 @@ package com.github.hivakun.wtext.module.table;
 
 
 import com.github.hivakun.wtext.arq.module.Text;
-import com.google.common.collect.Lists;
-import org.apache.commons.lang3.ArrayUtils;
+import com.github.hivakun.wtext.arq.parameter.TableCellParameter;
+import com.google.common.collect.Maps;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
+import java.util.Map;
 
+import static com.sun.corba.se.spi.activation.IIOP_CLEAR_TEXT.value;
 
 /**
  * Factory class to create cells.
- * @see Cell
  *
  * @author hivakun
  * Created on 26/04/16
+ * @see Cell
  */
 public class Cells {
 
@@ -51,9 +52,23 @@ public class Cells {
     }
 
     /**
-     * Create a new cell.
+     * Create a new cell with the desired column parameter.
      *
-     * @param text the cell text
+     * @param parameter the column parameter for the cell
+     * @param text      the cell text
+     * @return the cell element that contains the desired text
+     */
+    public static Cell newCell(String text, TableCellParameter parameter, @NotNull String paramValue) {
+        Cell cell = new Cell(text);
+        cell.setParameter(parameter, paramValue);
+        return cell;
+    }
+
+    /**
+     * Create a new cell with the desired column parameter.
+     *
+     * @param parameter the column parameter for the cell
+     * @param text      the cell text
      * @return the cell element that contains the desired text
      */
     public static Cell newCell(@NotNull Text text) {
@@ -61,62 +76,53 @@ public class Cells {
     }
 
     /**
-     * Create a new cells row.
-     * Represented by a list of cells.
+     * Create a new cell.
      *
-     * @param text the text of each cell
-     * @return a list of cells with their corresponding text
+     * @param text the cell text
+     * @return the cell element that contains the desired text
      */
-    public static List<Cell> newCellRow(String... text) {
-        return stringToCell(text);
+    public static Cell newCell(@NotNull Text text, TableCellParameter parameter, @NotNull String paramValue) {
+        Cell cell = new Cell(text.toString());
+        cell.setParameter(parameter, paramValue);
+        return cell;
     }
 
-    /**
-     * Create a new cells row.
-     * Represented by a list of cells.
-     *
-     * @param text the text of each cell
-     * @return a list of cells with their corresponding text
-     */
-    public static List<Cell> newCellRow(Text... text) {
-        return textToCell(text);
-    }
+    public static class Builder {
 
-    /**
-     * Transform a string list into a cell list.
-     *
-     * @param rows a list with the cell text
-     * @return a list of cells with their corresponding text
-     */
-    private static List<Cell> stringToCell(String... rows) {
+        private String element;
+        private final Map<TableCellParameter, String> parameters = Maps.newHashMap();
 
-        List<Cell> cells = Lists.newArrayList();
-
-        if (ArrayUtils.isNotEmpty(rows)) {
-            for (String item : rows) {
-                cells.add(new Cell(item));
-            }
+        public Builder(String text) {
+            this.element = text;
         }
 
-        return cells;
-    }
-
-    /**
-     * Transform a text list into a cell list.
-     *
-     * @param rows a list with the cell text
-     * @return a list of cells with their corresponding text
-     */
-    private static List<Cell> textToCell(Text... rows) {
-
-        List<Cell> cells = Lists.newArrayList();
-
-        if (ArrayUtils.isNotEmpty(rows)) {
-            for (Text item : rows) {
-                cells.add(new Cell(item.toString()));
-            }
+        public Builder(@NotNull Text text) {
+            this.element = text.toString();
         }
 
-        return cells;
+        public Builder withColspan(int value) {
+            this.parameters.put(TableCellParameter.COLSPAN, String.valueOf(value));
+            return this;
+        }
+
+        public Builder withRowspan(int value) {
+            this.parameters.put(TableCellParameter.ROWSPAN, String.valueOf(value));
+            return this;
+        }
+
+        public Builder withBackgroundColor(String value) {
+            this.parameters.put(TableCellParameter.BACKGROUND_COLOR, value);
+            return this;
+        }
+
+        public Builder with(TableCellParameter parameter, String value) {
+            this.parameters.put(parameter, value);
+            return this;
+        }
+
+        public Cell build() {
+            return new Cell(element, parameters);
+        }
     }
+
 }

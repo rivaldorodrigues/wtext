@@ -23,82 +23,88 @@ package com.github.hivakun.wtext.module.table;
  */
 
 
-import com.github.hivakun.wtext.arq.module.Text;
 import com.github.hivakun.wtext.arq.module.DataContainer;
 import com.github.hivakun.wtext.arq.parameter.TableCellParameter;
 import com.github.hivakun.wtext.arq.parameter.TableParameter;
+import com.github.hivakun.wtext.arq.parameter.TableRowParameter;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 /**
- * Represents a cell element at the document.
+ * Represents a table row at the document.
  *
  * @author hivakun
- * Created on 25/04/16
+ * Created on 10/10/16
  */
-public class Cell extends Text implements DataContainer {
+public class Row implements DataContainer {
 
-    private Map<TableCellParameter, String> parameters = Maps.newHashMap();
+    private List<Cell> row = Collections.EMPTY_LIST;
+    private Map<TableRowParameter, String> parameters = Maps.newHashMap();
 
     /**
-     * Create a new cell element.
+     * Create a new table row element.
      *
-     * @param element the string that represents the element
+     * @param cells the array of cells that represents the row columns
      */
-    protected Cell(String element) {
-        super(element);
+    protected Row(@NotNull List<Cell> cells) {
+        this.row = cells;
     }
 
     /**
-     * Create a new cell element with the desired column parameter.
+     * Create a new table row element with the desired row parameter.
      *
-     * @param element   the string that represents the element
-     * @param parameter the column parameter for the cell
+     * @param parameter the parameter for the row
+     * @param cells     the array of cells that represents the row columns
      */
-    protected Cell(String element, Map<TableCellParameter, String> parameters) {
-        super(element);
+    protected Row(Map<TableRowParameter, String> parameters, @NotNull List<Cell> cells) {
         this.parameters = parameters;
+        this.row = cells;
     }
 
-    /**
-     * Get the column parameter for the cell.
-     *
-     * @return the column parameter for the cell
-     */
-    public Map<TableCellParameter, String> getParameters() {
+    public void addCell(@NotNull Cell cell) {
+        row.add(cell);
+    }
+
+    public boolean isEmpty() {
+        return row.isEmpty();
+    }
+
+    public Map<TableRowParameter, String> getParameters() {
         return parameters;
     }
 
-    public void setParameters(Map<TableCellParameter, String> parameters) {
+    public void setParameters(Map<TableRowParameter, String> parameters) {
         this.parameters = parameters;
     }
 
-    /**
-     * Set the column parameter for the cell.
-     *
-     * @param parameter the column parameter for the cell
-     */
-    public void setParameter(TableCellParameter parameter, String value) {
-        parameters.put(parameter, value);
+    public void setParameter(TableRowParameter parameter, @NotNull String paramValue) {
+        parameters.put(parameter, paramValue);
     }
 
-    public String getParameter(TableCellParameter parameter) {
+    public String setParameter(TableRowParameter parameter) {
         return parameters.get(parameter);
+    }
+
+    public List<Cell> getRowAsList() {
+        return Collections.unmodifiableList(row);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
 
-        if (!(o instanceof Cell)) return false;
+        if (!(o instanceof Row)) return false;
 
-        Cell other = (Cell) o;
+        Row other = (Row) o;
 
         return new EqualsBuilder()
-                .append(element, other.element)
+                .append(row, other.row)
                 .append(parameters, other.parameters)
                 .isEquals();
     }

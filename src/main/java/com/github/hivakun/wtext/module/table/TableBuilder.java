@@ -4,7 +4,7 @@ package com.github.hivakun.wtext.module.table;
  * #%L
  * WText
  * %%
- * Copyright (C) 2016 Daydream
+ * Copyright (C) 2016 Rivaldo Rodrigues
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -24,10 +24,12 @@ package com.github.hivakun.wtext.module.table;
 
 
 import com.github.hivakun.wtext.arq.formatter.FormatterController;
-import com.github.hivakun.wtext.arq.parameter.TableParameter;
 import com.github.hivakun.wtext.arq.formatter.TableFormatter;
+import com.github.hivakun.wtext.arq.parameter.TableClass;
+import com.github.hivakun.wtext.arq.parameter.TableParameter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
@@ -41,9 +43,10 @@ import java.util.Map;
  */
 public class TableBuilder {
 
-    private List<Cell> header;
+    private Row header;
     private String caption = null;
-    private List<List<Cell>> rows = Lists.newArrayList();
+    private List<String> tableClass = Lists.newArrayList();
+    private List<Row> rows = Lists.newArrayList();
 
     private Map<TableParameter, Object> parameters = Maps.newHashMap();
 
@@ -53,7 +56,6 @@ public class TableBuilder {
      * Create the table builder.
      */
     public TableBuilder() {
-        this.header = Lists.newArrayList();
         addDefaultParameters();
     }
 
@@ -62,7 +64,7 @@ public class TableBuilder {
      *
      * @param header the table header
      */
-    public TableBuilder(List<Cell> header) {
+    public TableBuilder(Row header) {
         this.header = header;
         addDefaultParameters();
     }
@@ -73,7 +75,7 @@ public class TableBuilder {
      * @param val the desired table header
      * @return the builder itself
      */
-    public TableBuilder withHeader(List<Cell> val) {
+    public TableBuilder withHeader(Row val) {
         this.header = val;
         return this;
     }
@@ -96,7 +98,7 @@ public class TableBuilder {
      * @return the builder itself
      */
     public TableBuilder addHeader(Cell val) {
-        header.add(val);
+        header.addCell(val);
         return this;
     }
 
@@ -106,7 +108,7 @@ public class TableBuilder {
      *
      * @return the builder itself
      */
-    public TableBuilder addNewRow(List<Cell> row) {
+    public TableBuilder addNewRow(Row row) {
         this.rows.add(row);
         return this;
     }
@@ -119,7 +121,7 @@ public class TableBuilder {
      * @return the builder itself
      */
     public TableBuilder addNewCell(int rowIndex, Cell cell) {
-        this.rows.get(rowIndex).add(cell);
+        this.rows.get(rowIndex).addCell(cell);
         return this;
     }
 
@@ -130,7 +132,7 @@ public class TableBuilder {
      * @return the builder itself
      */
     public TableBuilder withBorder(int val) {
-        parameters.put(TableParameter.BORDER, val);
+        parameters.put(TableParameter.TABLE_BORDER, val);
         return this;
     }
 
@@ -156,6 +158,23 @@ public class TableBuilder {
         return this;
     }
 
+    public TableBuilder addTableClass(@NotNull TableClass... classes) {
+
+        for (TableClass clazz : classes) {
+            this.tableClass.add(clazz.getTableClass());
+        }
+
+        return this;
+    }
+
+    public TableBuilder addCustomTableClass(@NotNull String... classes) {
+        for (String clazz : classes) {
+            this.tableClass.add(clazz);
+        }
+
+        return this;
+    }
+
     /**
      * Checks if the table has no element (header or rows).
      *
@@ -171,7 +190,7 @@ public class TableBuilder {
      * @return the table element
      */
     public Table buildTable() {
-        return new Table(formatter.formatTable(header,caption,rows,parameters));
+        return new Table(formatter.formatTable(header,caption,rows,parameters,tableClass));
     }
 
     /**

@@ -4,7 +4,7 @@ package com.github.hivakun.wtext.wiki.markup;
  * #%L
  * WText
  * %%
- * Copyright (C) 2016 Daydream
+ * Copyright (C) 2016 Rivaldo Rodrigues
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -38,7 +38,11 @@ public enum WikiTableMarkup {
 
     TABLE_END("", "|}"),
 
-    ROW("|-\n", "\n|-\n"),
+    ROW_START("|-", "\n"),
+
+    ROW_END("", "\n|-\n"),
+
+    ROW_DATA("|", ""),
 
     BORDER("border=\"", "\""),
 
@@ -46,11 +50,19 @@ public enum WikiTableMarkup {
 
     CELL_SPACING("cellspacing=\"", "\""),
 
+    TABLE_CLASS("class=\"", "\""),
+
     CAPTION("|+ ","\n"),
 
     HEADER("! ", "\n"),
 
-    DATA("||", "");
+    COLSPAN("colspan=\"", "\""),
+
+    ROWSPAN("rowspan=\"", "\""),
+
+    STYLE("style=\"", "\""),
+
+    BACKGROUND_COLOR("bgcolor=\"", "\"");
 
     private final String initialMarkup;
     private final String finalMarkup;

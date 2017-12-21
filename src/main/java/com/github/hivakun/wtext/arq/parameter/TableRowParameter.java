@@ -25,58 +25,39 @@ package com.github.hivakun.wtext.arq.parameter;
 
 import com.github.hivakun.wtext.arq.formatter.FormatterController;
 import com.github.hivakun.wtext.arq.formatter.TableFormatter;
+import com.github.hivakun.wtext.arq.formatter.TableRowFormatter;
 
 /**
  * Enum that hold all the parameters that can be applied in a table element.
  * @see TableFormatter
  *
  * @author hivakun
- * Created on 25/04/16
+ * Created on 11/10/16
  */
-public enum TableParameter {
-
-    CELL_PADDING() {
-        @Override
-        public String apply(Object val) {
-            return formatter.cellPadding(val);
-        }
-    },
-
-    CELL_SPACING() {
-        @Override
-        public String apply(Object val) {
-            return formatter.cellSpacing(val);
-        }
-    },
-
-    TABLE_BORDER() {
-        @Override
-        public String apply(Object val) {
-            return formatter.tableBorder(val);
-        }
-    },
-
-    TABLE_CLASS() {
-        @Override
-        public String apply(Object val) {
-            return formatter.tableClass(val);
-        }
-    },
+public enum TableRowParameter {
 
     STYLE() {
         @Override
-        public String apply(Object val) {
+        public String apply(String val) {
             return formatter.style(val);
+        }
+    },
+
+
+    BACKGROUND_COLOR() {
+        @Override
+        public String apply(String val) {
+            return formatter.backgroundColor(val);
         }
     };
 
-    final TableFormatter formatter;
+    final TableRowFormatter formatter;
 
     /**
      * Creates the constants of table parameters.
      */
-    TableParameter() {
-        formatter = FormatterController.getFactory().getTableFormatter();
+    TableRowParameter() {
+        formatter = FormatterController.getFactory().getTableRowFormatter();
     }
 
     /**
@@ -85,5 +66,5 @@ public enum TableParameter {
      * @param val the desired value
      * @return the markup text of the table parameter with the desired value
      */
-    public abstract String apply(Object val);
+    public abstract String apply(String val);
 }

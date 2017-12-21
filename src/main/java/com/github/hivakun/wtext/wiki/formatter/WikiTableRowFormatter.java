@@ -1,4 +1,4 @@
-package com.github.hivakun.wtext.module.table;
+package com.github.hivakun.wtext.wiki.formatter;
 
 /*
  * #%L
@@ -23,37 +23,27 @@ package com.github.hivakun.wtext.module.table;
  */
 
 
-import com.github.hivakun.wtext.arq.module.DataContainer;
-import com.github.hivakun.wtext.arq.module.Element;
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import com.github.hivakun.wtext.arq.formatter.TableRowFormatter;
+import com.github.hivakun.wtext.module.table.Table;
+import com.github.hivakun.wtext.wiki.markup.WikiTableMarkup;
+import org.jetbrains.annotations.NotNull;
 
 /**
- * Represents a table element at the document.
+ * Implements the mediawiki table formatting strategy.
  *
  * @author hivakun
- * Created on 25/04/16
+ * Created on 04/05/16
+ * @see Table
  */
-public class Table extends Element implements DataContainer {
+public class WikiTableRowFormatter implements TableRowFormatter {
 
-    /**
-     * Create a new table element.
-     *
-     * @param element the string that represents the element
-     */
-    protected Table(String element) {
-        super(element);
+    @Override
+    public String style(@NotNull String val) {
+        return WikiTableMarkup.STYLE.apply(val);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (!(o instanceof Table)) return false;
-
-        Table other = (Table) o;
-
-        return new EqualsBuilder()
-                .append(element, other.element)
-                .isEquals();
+    public String backgroundColor(@NotNull String val) {
+        return WikiTableMarkup.BACKGROUND_COLOR.apply(val);
     }
 }

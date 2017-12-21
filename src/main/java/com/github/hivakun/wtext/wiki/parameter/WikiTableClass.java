@@ -1,4 +1,4 @@
-package com.github.hivakun.wtext.module.table;
+package com.github.hivakun.wtext.wiki.parameter;
 
 /*
  * #%L
@@ -23,37 +23,37 @@ package com.github.hivakun.wtext.module.table;
  */
 
 
-import com.github.hivakun.wtext.arq.module.DataContainer;
-import com.github.hivakun.wtext.arq.module.Element;
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import com.github.hivakun.wtext.arq.parameter.TableClass;
+import org.jetbrains.annotations.NotNull;
 
 /**
- * Represents a table element at the document.
+ * Enum that hold a set of commons mediawiki css table classes.
+ * @see com.github.hivakun.wtext.arq.parameter.TableClass
  *
  * @author hivakun
- * Created on 25/04/16
+ * Created on 10/10/16
  */
-public class Table extends Element implements DataContainer {
+public enum WikiTableClass implements TableClass {
+
+    WIKITABLE("wikitable"),
+
+    SORTABLE("sortable"),
+
+    COLLAPSIBLE("collapsible mw-collapsible"),
+
+    COLLAPSED("collapsible mw-collapsible mw-collapsed");
+
+    private final String clazz;
 
     /**
-     * Create a new table element.
-     *
-     * @param element the string that represents the element
+     * Creates the constants of mediawiki table class.
      */
-    protected Table(String element) {
-        super(element);
+    WikiTableClass(@NotNull String clazz) {
+        this.clazz = clazz;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (!(o instanceof Table)) return false;
-
-        Table other = (Table) o;
-
-        return new EqualsBuilder()
-                .append(element, other.element)
-                .isEquals();
+    public String getTableClass() {
+        return clazz;
     }
 }

@@ -22,13 +22,8 @@ package com.github.hivakun.wtext.arq.formatter;
  * #L%
  */
 
-import com.github.hivakun.wtext.arq.parameter.TableParameter;
-import com.github.hivakun.wtext.module.table.Row;
 import com.github.hivakun.wtext.module.table.Table;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Interface to all classes that implement the table formatting strategy.
@@ -37,7 +32,7 @@ import java.util.Map;
  * @author hivakun
  * Created on 04/05/16
  */
-public interface TableFormatter {
+public interface TableCellFormatter {
 
     /**
      * Apply the desired value to the table tableBorder parameter.
@@ -45,7 +40,7 @@ public interface TableFormatter {
      * @param val the desired value
      * @return the markup text of the table tableBorder parameter with the desired value
      */
-    String tableBorder(@NotNull Object val);
+    String colspan(@NotNull String val);
 
     /**
      * Apply the desired value to the table cell padding parameter.
@@ -53,7 +48,7 @@ public interface TableFormatter {
      * @param val the desired value
      * @return the markup text of the table cell padding parameter with the desired value
      */
-    String cellPadding(@NotNull Object val);
+    String rowspan(@NotNull String val);
 
     /**
      * Apply the desired value to the table cell spacing parameter.
@@ -61,7 +56,7 @@ public interface TableFormatter {
      * @param val the desired value
      * @return the markup text of the table cell spacing parameter with the desired value
      */
-    String cellSpacing(@NotNull Object val);
+    String style(@NotNull String val);
 
     /**
      * Apply the desired value to the table class parameter.
@@ -69,25 +64,5 @@ public interface TableFormatter {
      * @param val the desired value
      * @return the markup text of the table class parameter with the desired value
      */
-    String tableClass(@NotNull Object val);
-
-    /**
-     * Apply the desired value to the table cell spacing parameter.
-     *
-     * @param val the desired value
-     * @return the markup text of the table cell spacing parameter with the desired value
-     */
-    String style(@NotNull Object val);
-
-    /**
-     * Format the table and apply the specified parameters.
-     *
-     * @param header the table header line
-     * @param caption the table caption
-     * @param rows the list of table rows
-     * @param param an map with all the desired parameters
-     * @param tableClasses the css classes to be applied to the table
-     * @return a string formatted with the table markup
-     */
-    String formatTable(Row header, String caption, List<Row> rows, Map<TableParameter, Object> param, List<String> tableClasses);
+    String backgroundColor(@NotNull String val);
 }

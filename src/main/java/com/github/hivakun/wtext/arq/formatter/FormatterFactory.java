@@ -66,4 +66,18 @@ public interface FormatterFactory {
      * @return the default implementation of {@code TableFormatter}
      */
     TableFormatter getTableFormatter();
+
+    /**
+     * Get the default implementation of the {@code TableFormatter} interface to be used to format tables.
+     * @return the default implementation of {@code TableFormatter}
+     */
+    TableRowFormatter getTableRowFormatter();
+
+    /**
+     * Get the default implementation of the {@code TableFormatter} interface to be used to format tables.
+     * @return the default implementation of {@code TableFormatter}
+     */
+    TableCellFormatter getTableCellFormatter();
+
+
 }

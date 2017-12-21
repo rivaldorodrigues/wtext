@@ -1,4 +1,4 @@
-package com.github.hivakun.wtext.module.table;
+package com.github.hivakun.wtext.arq.formatter;
 
 /*
  * #%L
@@ -22,38 +22,31 @@ package com.github.hivakun.wtext.module.table;
  * #L%
  */
 
-
-import com.github.hivakun.wtext.arq.module.DataContainer;
-import com.github.hivakun.wtext.arq.module.Element;
-import org.apache.commons.lang3.builder.EqualsBuilder;
+import com.github.hivakun.wtext.module.table.Table;
+import org.jetbrains.annotations.NotNull;
 
 /**
- * Represents a table element at the document.
+ * Interface to all classes that implement the table formatting strategy.
+ * @see Table
  *
  * @author hivakun
- * Created on 25/04/16
+ * Created on 04/05/16
  */
-public class Table extends Element implements DataContainer {
+public interface TableRowFormatter {
 
     /**
-     * Create a new table element.
+     * Apply the desired value to the table cell spacing parameter.
      *
-     * @param element the string that represents the element
+     * @param val the desired value
+     * @return the markup text of the table cell spacing parameter with the desired value
      */
-    protected Table(String element) {
-        super(element);
-    }
+    String style(@NotNull String val);
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (!(o instanceof Table)) return false;
-
-        Table other = (Table) o;
-
-        return new EqualsBuilder()
-                .append(element, other.element)
-                .isEquals();
-    }
+    /**
+     * Apply the desired value to the table class parameter.
+     *
+     * @param val the desired value
+     * @return the markup text of the table class parameter with the desired value
+     */
+    String backgroundColor(@NotNull String val);
 }
